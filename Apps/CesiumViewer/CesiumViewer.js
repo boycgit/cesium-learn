@@ -1,9 +1,12 @@
+// 设置 Cesium 的基础 URL
 // eslint-disable-next-line no-undef
 window.CESIUM_BASE_URL = window.CESIUM_BASE_URL
   ? window.CESIUM_BASE_URL
   : "../../Build/CesiumUnminified/";
 
+// 导入所需的 Cesium 模块
 import {
+  Ion,
   Cartesian3,
   defined,
   formatError,
@@ -22,38 +25,45 @@ import {
   viewerDragDropMixin,
 } from "../../Build/CesiumUnminified/index.js";
 
+// 设置 Cesium ion 的默认访问令牌
+Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmMDU0NTkzZS03ZGM1LTQ5YjgtYTMxMy1kYzYxYzg1ODRkN2UiLCJpZCI6MTg4ODMxLCJpYXQiOjE3MDQ4NTE3MTB9.HrtaIbMMeu1Rj5Ef30FV63xX6wVmQncxlc0PPJYM1Wc";
+
 async function main() {
   /*
-     Options parsed from query string:
-       source=url          The URL of a CZML/GeoJSON/KML data source to load at startup.
-                           Automatic data type detection uses file extension.
+     解析查询字符串中的选项:
+       source=url          启动时加载的 CZML/GeoJSON/KML 数据源的 URL。
+                           自动数据类型检测使用文件扩展名。
        sourceType=czml/geojson/kml
-                           Override data type detection for source.
-       flyTo=false         Don't automatically fly to the loaded source.
-       tmsImageryUrl=url   Automatically use a TMS imagery provider.
-       lookAt=id           The ID of the entity to track at startup.
-       stats=true          Enable the FPS performance display.
-       inspector=true      Enable the inspector widget.
-       debug=true          Full WebGL error reporting at substantial performance cost.
-       theme=lighter       Use the dark-text-on-light-background theme.
-       scene3DOnly=true    Enable 3D only mode.
+                           覆盖源的数据类型检测。
+       flyTo=false         不自动飞行到加载的源。
+       tmsImageryUrl=url   自动使用 TMS 影像提供程序。
+       lookAt=id           启动时跟踪的实体的 ID。
+       stats=true          启用 FPS 性能显示。
+       inspector=true      启用检查器小部件。
+       debug=true          以显著的性能成本进行完整的 WebGL 错误报告。
+       theme=lighter       使用深色文本在浅色背景上的主题。
+       scene3DOnly=true    启用仅 3D 模式。
        view=longitude,latitude,[height,heading,pitch,roll]
-                           Automatically set a camera view. Values in degrees and meters.
-                           [height,heading,pitch,roll] default is looking straight down, [300,0,-90,0]
-       saveCamera=false    Don't automatically update the camera view in the URL when it changes.
+                           自动设置相机视图。值以度和米为单位。
+                           [height,heading,pitch,roll] 默认是直视下方，[300,0,-90,0]
+       saveCamera=false    当相机视图改变时不自动更新 URL 中的相机视图。
      */
+  // 从 URL 查询字符串中解析用户选项
   const endUserOptions = queryToObject(window.location.search.substring(1));
 
   let baseLayer;
+  // 如果指定了 TMS 影像 URL，创建基础图层
   if (defined(endUserOptions.tmsImageryUrl)) {
     baseLayer = ImageryLayer.fromProviderAsync(
       TileMapServiceImageryProvider.fromUrl(endUserOptions.tmsImageryUrl)
     );
   }
 
+  // 获取加载指示器元素
   const loadingIndicator = document.getElementById("loadingIndicator");
   const hasBaseLayerPicker = !defined(baseLayer);
 
+  // 创建地形提供程序
   const terrain = Terrain.fromWorldTerrain({
     requestWaterMask: true,
     requestVertexNormals: true,
@@ -61,6 +71,7 @@ async function main() {
 
   let viewer;
   try {
+    // 创建 Cesium Viewer 实例
     viewer = new Viewer("cesiumContainer", {
       baseLayer: baseLayer,
       baseLayerPicker: hasBaseLayerPicker,
@@ -69,11 +80,13 @@ async function main() {
       terrain: terrain,
     });
 
+    // 如果有基础图层选择器，设置默认地形
     if (hasBaseLayerPicker) {
       const viewModel = viewer.baseLayerPicker.viewModel;
       viewModel.selectedTerrain = viewModel.terrainProviderViewModels[1];
     }
   } catch (exception) {
+    // 处理 Viewer 创建过程中的错误
     loadingIndicator.style.display = "none";
     const message = formatError(exception);
     console.error(message);
@@ -84,11 +97,13 @@ async function main() {
     return;
   }
 
+  // 扩展 viewer 功能
   viewer.extend(viewerDragDropMixin);
   if (endUserOptions.inspector) {
     viewer.extend(viewerCesiumInspectorMixin);
   }
 
+  // 定义显示加载错误的函数
   const showLoadError = function (name, error) {
     const title = `An error occurred while loading the file: ${name}`;
     const message =
@@ -96,12 +111,14 @@ async function main() {
     viewer.cesiumWidget.showErrorPanel(title, message, error);
   };
 
+  // 添加拖放错误事件监听器
   viewer.dropError.addEventListener(function (viewerArg, name, error) {
     showLoadError(name, error);
   });
 
   const scene = viewer.scene;
   const context = scene.context;
+  // 如果启用了调试模式，设置相关选项
   if (endUserOptions.debug) {
     context.validateShaderProgram = true;
     context.validateFramebuffer = true;
@@ -114,7 +131,7 @@ async function main() {
   if (defined(source)) {
     let sourceType = endUserOptions.sourceType;
     if (!defined(sourceType)) {
-      // autodetect using file extension if not specified
+      // 如果未指定源类型，根据文件扩展名自动检测
       if (/\.czml$/i.test(source)) {
         sourceType = "czml";
       } else if (
@@ -131,6 +148,7 @@ async function main() {
     }
 
     let loadPromise;
+    // 根据源类型加载相应的数据
     if (sourceType === "czml") {
       loadPromise = CzmlDataSource.load(source);
     } else if (sourceType === "geojson") {
@@ -149,9 +167,11 @@ async function main() {
 
     if (defined(loadPromise)) {
       try {
+        // 将加载的数据源添加到 viewer
         const dataSource = await viewer.dataSources.add(loadPromise);
         const lookAt = endUserOptions.lookAt;
         if (defined(lookAt)) {
+          // 如果指定了 lookAt，尝试跟踪相应的实体
           const entity = dataSource.entities.getById(lookAt);
           if (defined(entity)) {
             viewer.trackedEntity = entity;
@@ -160,6 +180,7 @@ async function main() {
             showLoadError(source, error);
           }
         } else if (!defined(view) && endUserOptions.flyTo !== "false") {
+          // 如果没有指定 view 且 flyTo 不为 false，飞行到数据源
           viewer.flyTo(dataSource);
         }
       } catch (error) {
@@ -168,10 +189,12 @@ async function main() {
     }
   }
 
+  // 如果启用了统计信息，显示 FPS
   if (endUserOptions.stats) {
     scene.debugShowFramesPerSecond = true;
   }
 
+  // 处理主题设置
   const theme = endUserOptions.theme;
   if (defined(theme)) {
     if (endUserOptions.theme === "lighter") {
@@ -183,6 +206,7 @@ async function main() {
     }
   }
 
+  // 如果指定了 view，设置相机视图
   if (defined(view)) {
     const splitQuery = view.split(/[ ,]+/);
     if (splitQuery.length > 1) {
@@ -217,6 +241,7 @@ async function main() {
   }
 
   const camera = viewer.camera;
+  // 定义保存相机状态的函数
   function saveCamera() {
     const position = camera.positionCartographic;
     let hpr = "";
@@ -232,6 +257,7 @@ async function main() {
   }
 
   let timeout;
+  // 如果允许保存相机状态，添加相机变化事件监听器
   if (endUserOptions.saveCamera !== "false") {
     camera.changed.addEventListener(function () {
       window.clearTimeout(timeout);
@@ -239,7 +265,9 @@ async function main() {
     });
   }
 
+  // 隐藏加载指示器
   loadingIndicator.style.display = "none";
 }
 
+// 执行主函数
 main();
