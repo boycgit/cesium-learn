@@ -1,34 +1,34 @@
 # CesiumJS
 
-[![Build Status](https://github.com/CesiumGS/cesium/actions/workflows/dev.yml/badge.svg)](https://github.com/CesiumGS/cesium/actions/workflows/dev.yml)
+[![构建状态](https://github.com/CesiumGS/cesium/actions/workflows/dev.yml/badge.svg)](https://github.com/CesiumGS/cesium/actions/workflows/dev.yml)
 [![npm](https://img.shields.io/npm/v/cesium)](https://www.npmjs.com/package/cesium)
-[![Docs](https://img.shields.io/badge/docs-online-orange.svg)](https://cesium.com/learn/)
+[![文档](https://img.shields.io/badge/docs-online-orange.svg)](https://cesium.com/learn/)
 
 ![Cesium](https://github.com/CesiumGS/cesium/wiki/logos/Cesium_Logo_Color.jpg)
 
-CesiumJS is a JavaScript library for creating 3D globes and 2D maps in a web browser without a plugin. It uses WebGL for hardware-accelerated graphics, and is cross-platform, cross-browser, and tuned for dynamic-data visualization.
+CesiumJS 是一个 JavaScript 库，用于在网络浏览器中创建 3D 地球和 2D 地图，无需插件。它使用 WebGL 进行硬件加速图形处理，跨平台、跨浏览器，并针对动态数据可视化进行了优化。
 
-Built on open formats, CesiumJS is designed for robust interoperability and scaling for massive datasets.
-
----
-
-[**Examples**](https://sandcastle.cesium.com/) :earth_asia: [**Docs**](https://cesium.com/learn/cesiumjs-learn/) :earth_americas: [**Website**](https://cesium.com/cesiumjs) :earth_africa: [**Forum**](https://community.cesium.com/) :earth_asia: [**User Stories**](https://cesium.com/user-stories/)
+CesiumJS 基于开放格式构建，旨在实现强大的互操作性，并可扩展以处理海量数据集。
 
 ---
 
-## :rocket: Get started
+[**示例**](https://sandcastle.cesium.com/) :earth_asia: [**文档**](https://cesium.com/learn/cesiumjs-learn/) :earth_americas: [**网站**](https://cesium.com/cesiumjs) :earth_africa: [**论坛**](https://community.cesium.com/) :earth_asia: [**用户故事**](https://cesium.com/user-stories/)
 
-Visit the [Downloads page](https://cesium.com/downloads/) to download a pre-built copy of CesiumJS.
+---
+
+## :rocket: 开始使用
+
+访问[下载页面](https://cesium.com/downloads/)下载预构建的 CesiumJS 副本。
 
 ### npm & yarn
 
-If you’re building your application using a module bundler such as Webpack, Parcel, or Rollup, you can install CesiumJS via the [`cesium` npm package](https://www.npmjs.com/package/cesium):
+如果您正在使用模块打包工具（如 Webpack、Parcel 或 Rollup）构建应用程序，可以通过 [`cesium` npm 包](https://www.npmjs.com/package/cesium)安装 CesiumJS：
 
 ```sh
 npm install cesium --save
 ```
 
-Then, import CesiumJS in your app code. Import individual modules to benefit from tree shaking optimizations through most build tools:
+然后，在您的应用代码中导入 CesiumJS。导入单个模块以通过大多数构建工具受益于 tree shaking优化：
 
 ```js
 import { Viewer } from "cesium";
@@ -37,36 +37,35 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 const viewer = new Viewer("cesiumContainer");
 ```
 
-In addition to the `cesium` package, CesiumJS is also [distributed as scoped npm packages for better dependency management](https://cesium.com/blog/2022/12/07/modular-structure-in-cesiumjs/):
+除了 `cesium` 包外，CesiumJS 还[以作用域 npm 包的形式分发，以实现更好的依赖管理](https://cesium.com/blog/2022/12/07/modular-structure-in-cesiumjs/)：
 
-- [`@cesium/engine`](./packages/engine/README.md) - CesiumJS's core, rendering, and data APIs
-- [`@cesium/widgets`](./packages/widgets/README.md) - A widgets library for use with CesiumJS
+- [`@cesium/engine`](./packages/engine/README.md) - CesiumJS 的核心、渲染和数据 API
+- [`@cesium/widgets`](./packages/widgets/README.md) - 用于 CesiumJS 的小部件库
 
-### What next?
+### 接下来做什么？
 
-See our [Quickstart Guide](https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/) for more information on getting a CesiumJS app up and running.
+查看我们的[快速入门指南](https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/)，了解有关启动和运行 CesiumJS 应用程序的更多信息。
 
-Instructions for serving local data are in the CesiumJS
-[Offline Guide](./Documentation/OfflineGuide/README.md).
+有关服务本地数据的说明，请参阅 CesiumJS 的[离线指南](./Documentation/OfflineGuide/README.md)。
 
-Interested in contributing? See [CONTRIBUTING.md](CONTRIBUTING.md). :heart:
+有兴趣贡献吗？请参阅 [CONTRIBUTING.md](CONTRIBUTING.md)。:heart:
 
-## :green_book: License
+## :green_book: 许可证
 
-[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html). CesiumJS is free for both commercial and non-commercial use.
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)。CesiumJS 可免费用于商业和非商业用途。
 
-## :earth_americas: Where does the Global 3D Content come from?
+## :earth_americas: 全球 3D 内容来自哪里？
 
-The Cesium platform follows an [open-core business model](https://cesium.com/why-cesium/open-ecosystem/cesium-business-model/) with open source runtime engines such as CesiumJS and optional commercial subscription to Cesium ion.
+Cesium 平台遵循[开放核心商业模式](https://cesium.com/why-cesium/open-ecosystem/cesium-business-model/)，提供开源运行时引擎（如 CesiumJS）和可选的商业订阅 Cesium ion。
 
-CesiumJS can stream [3D content such as terrain, imagery, and 3D Tiles from the commercial Cesium ion platform](https://cesium.com/platform/cesium-ion/content/) alongside open standards from other offline or online services. We provide Cesium ion as the quickest option for all users to get up and running, but you are free to use any combination of content sources with CesiumJS that you please.
+CesiumJS 可以从商业 Cesium ion 平台流式传输[3D 内容，如地形、影像和 3D Tiles](https://cesium.com/platform/cesium-ion/content/)，同时支持来自其他离线或在线服务的开放标准。我们提供 Cesium ion 作为所有用户快速启动和运行的最佳选择，但您可以自由使用任何您喜欢的内容源组合与 CesiumJS。
 
-Bring your own data for tiling, hosting, and streaming from Cesium ion. [Using Cesium ion](https://cesium.com/ion/signup/) helps support CesiumJS development.
+将您自己的数据带到 Cesium ion 进行切片、托管和流式传输。[使用 Cesium ion](https://cesium.com/ion/signup/) 有助于支持 CesiumJS 的开发。
 
-## :white_check_mark: Features
+## :white_check_mark: 功能
 
-- Stream in 3D Tiles and other standard formats from Cesium ion or another source
-- Visualize and analyze on a high-precision WGS84 globe
-- Share with users on desktop or mobile
+- 从 Cesium ion 或其他来源流式传输 3D Tiles 和其他标准格式
+- 在高精度 WGS84 地球上进行可视化和分析
+- 与桌面或移动设备用户共享
 
-See more in the [CesiumJS Features Checklist](https://github.com/CesiumGS/cesium/wiki/CesiumJS-Features-Checklist).
+在 [CesiumJS 功能清单](https://github.com/CesiumGS/cesium/wiki/CesiumJS-Features-Checklist)中查看更多功能。
