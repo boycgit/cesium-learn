@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,10 +9,10 @@
     />
     <meta
       name="description"
-      content="Use the camera to control the view, and create custom event handlers for input."
+      content="使用相机控制视图，并为输入创建自定义事件处理程序。"
     />
-    <meta name="cesium-sandcastle-labels" content="Tutorials, Showcases" />
-    <title>Cesium Demo</title>
+    <meta name="cesium-sandcastle-labels" content="教程, 展示" />
+    <title>Cesium 演示</title>
     <script type="text/javascript" src="../Sandcastle-header.js"></script>
     <script
       type="text/javascript"
@@ -29,25 +29,25 @@
       @import url(../templates/bucket.css);
     </style>
     <div id="cesiumContainer" class="fullSize"></div>
-    <div id="loadingOverlay"><h1>Loading...</h1></div>
+    <div id="loadingOverlay"><h1>加载中...</h1></div>
     <div id="toolbar">
       <table class="infoPanel">
         <tbody>
           <tr>
-            <td>Click on the Cesium display to start.</td>
+            <td>点击 Cesium 显示区域开始。</td>
           </tr>
           <tr>
-            <td>w/s - move forward/backward</td>
+            <td>w/s - 前进/后退</td>
           </tr>
           <tr>
-            <td>a/d - move left/right</td>
+            <td>a/d - 左移/右移</td>
           </tr>
           <tr>
-            <td>q/e - move up/down</td>
+            <td>q/e - 上升/下降</td>
           </tr>
           <tr>
             <td>
-              left mouse button down plus mouse move changes the look direction
+              按住鼠标左键并移动可改变视角方向
             </td>
           </tr>
         </tbody>
@@ -61,13 +61,13 @@
 
         const scene = viewer.scene;
         const canvas = viewer.canvas;
-        canvas.setAttribute("tabindex", "0"); // needed to put focus on the canvas
+        canvas.setAttribute("tabindex", "0"); // 需要将焦点设置在画布上
         canvas.onclick = function () {
           canvas.focus();
         };
         const ellipsoid = scene.globe.ellipsoid;
 
-        // disable the default event handlers
+        // 禁用默认事件处理程序
         scene.screenSpaceCameraController.enableRotate = false;
         scene.screenSpaceCameraController.enableTranslate = false;
         scene.screenSpaceCameraController.enableZoom = false;
@@ -151,7 +151,7 @@
             const width = canvas.clientWidth;
             const height = canvas.clientHeight;
 
-            // Coordinate (0.0, 0.0) will be where the mouse was clicked.
+            // 坐标 (0.0, 0.0) 将是鼠标点击的位置。
             const x = (mousePosition.x - startMousePosition.x) / width;
             const y = -(mousePosition.y - startMousePosition.y) / height;
 
@@ -160,7 +160,7 @@
             camera.lookUp(y * lookFactor);
           }
 
-          // Change movement speed based on the distance of the camera to the surface of the ellipsoid.
+          // 根据相机到椭球体表面的距离改变移动速度。
           const cameraHeight = ellipsoid.cartesianToCartographic(
             camera.position
           ).height;

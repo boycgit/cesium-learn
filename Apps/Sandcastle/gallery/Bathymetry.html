@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- 设置文档字符编码和兼容性模式 -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- 设置视口以确保在移动设备上正确显示 -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
     />
+    <!-- 页面描述 -->
     <meta
       name="description"
       content="Visualize worldwide, high-resolution bathymetry."
     />
+    <!-- Cesium Sandcastle标签 -->
     <meta name="cesium-sandcastle-labels" content="Tutorials, Showcases" />
     <title>Cesium Demo</title>
+    <!-- 引入Sandcastle头文件 -->
     <script type="text/javascript" src="../Sandcastle-header.js"></script>
+    <!-- 引入Cesium库 -->
     <script
       type="text/javascript"
       src="../../../Build/CesiumUnminified/Cesium.js"
@@ -25,9 +31,12 @@
     class="sandcastle-loading"
     data-sandcastle-bucket="bucket-requirejs.html"
   >
+    <!-- 样式定义 -->
     <style>
+      /* 导入基础样式 */
       @import url(../templates/bucket.css);
 
+      /* 工具栏样式 */
       #toolbar {
         background: rgba(42, 42, 42, 0.8);
         padding: 4px;
@@ -57,13 +66,16 @@
         text-align: right;
       }
     </style>
+    <!-- Cesium容器 -->
     <div id="cesiumContainer" class="fullSize"></div>
+    <!-- 加载覆盖层 -->
     <div id="loadingOverlay"><h1>Loading...</h1></div>
+    <!-- 工具栏 -->
     <div id="toolbar">
       <table>
         <tbody>
           <tr>
-            <td class="header">Elevation</td>
+            <td class="header">海拔高度</td>
           </tr>
           <tr>
             <td id="minHeight"><span data-bind="text: minHeight"></span>m</td>
@@ -74,7 +86,7 @@
             <td class="header">Options</td>
           </tr>
           <tr>
-            <td>Exaggeration</td>
+            <td>夸张效果</td>
             <td>
               <input
                 type="range"
@@ -89,10 +101,12 @@
         </tbody>
       </table>
     </div>
+    <!-- 主要的JavaScript代码 -->
     <script id="cesium_sandcastle_script">
       window.startup = async function (Cesium) {
         "use strict";
         //Sandcastle_Begin
+        // 创建Cesium查看器
         const viewer = new Cesium.Viewer("cesiumContainer", {
           timeline: false,
           animation: false,
@@ -101,27 +115,29 @@
           }),
         });
 
+        // 设置基础图层
         viewer.baseLayerPicker.viewModel.selectedImagery =
           viewer.baseLayerPicker.viewModel.imageryProviderViewModels[11];
 
         const scene = viewer.scene;
 
-        // prevent aliasing from countour lines
+        // 防止等高线产生锯齿
         scene.msaaSamples = 4;
 
         const globe = scene.globe;
         globe.enableLighting = true;
-        globe.maximumScreenSpaceError = 1.0; // Load higher resolution tiles for better seafloor shading
+        globe.maximumScreenSpaceError = 1.0; // 加载更高分辨率的瓦片以获得更好的海底阴影效果
 
-        Sandcastle.addToggleButton("Lighting enabled", true, function (
+        // 添加照明开关按钮
+        Sandcastle.addToggleButton("开启光照", true, function (
           checked
         ) {
           globe.enableLighting = checked;
         });
 
-        // Light the scene with a hillshade effect similar to https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-hillshade-works.htm
+        // 设置场景光照，类似于ArcGIS的山体阴影效果
         scene.light = new Cesium.DirectionalLight({
-          direction: new Cesium.Cartesian3(1, 0, 0), // Updated every frame
+          direction: new Cesium.Cartesian3(1, 0, 0), // 每帧更新
         });
 
         const camera = scene.camera;
@@ -151,16 +167,18 @@
           updateGlobeMaterialUniforms(zoomMagnitude);
         });
 
-        Sandcastle.addToggleButton("Fog enabled", true, (checked) => {
+        // 添加雾效果开关按钮
+        Sandcastle.addToggleButton("开启雾效果", true, (checked) => {
           scene.fog.enabled = checked;
           globe.showGroundAtmosphere = checked;
         });
 
-        // Globe materials
+        // 地球材质设置
         let showContourLines = true;
         let showElevationColorRamp = true;
         let invertContourLines = false;
 
+        // 高度范围和等高线间隔设置
         const minHeight = -10000.0;
         const seaLevel = 0.0;
         const maxHeight = 2000.0;
@@ -169,7 +187,7 @@
         const range = maxHeight - minHeight;
         const d = (height) => (height - minHeight) / range;
 
-        // Create a color ramp based on https://matplotlib.org/cmocean/#deep
+        // 创建颜色渐变函数
         function getColorRamp() {
           const ramp = document.getElementById("colorRamp");
           ramp.width = 100;
@@ -196,6 +214,7 @@
           return ramp;
         }
 
+        // 创建高程等高线材质
         function getElevationContourMaterial() {
           // Creates a composite material with both elevation shading and contour lines
           return new Cesium.Material({
@@ -220,6 +239,7 @@
           });
         }
 
+        // 更新地球材质uniforms
         function updateGlobeMaterialUniforms(zoomMagnitude) {
           const material = globe.material;
           if (!Cesium.defined(material)) {
@@ -245,6 +265,7 @@
           }
         }
 
+        // 更新地球材质
         function updateGlobeMaterial() {
           let material;
           if (showContourLines) {
@@ -297,8 +318,9 @@
 
         updateGlobeMaterial();
 
+        // 添加颜色渐变、等高线和反转等高线颜色的开关按钮
         Sandcastle.addToggleButton(
-          "Color ramp enabled",
+          "开启颜色渐变映射",
           showElevationColorRamp,
           function (checked) {
             showElevationColorRamp = checked;
@@ -307,7 +329,7 @@
         );
 
         Sandcastle.addToggleButton(
-          "Contour lines enabled",
+          "开启轮廓线",
           showContourLines,
           function (checked) {
             showContourLines = checked;
@@ -316,7 +338,7 @@
         );
 
         Sandcastle.addToggleButton(
-          "Invert contour line color",
+          "反显轮廓线",
           invertContourLines,
           function (checked) {
             invertContourLines = checked;
@@ -324,17 +346,19 @@
           }
         );
 
-        // Vertical exaggeration
+        // 垂直夸张设置
         const viewModel = {
           exaggeration: scene.verticalExaggeration,
           minHeight: minHeight,
           maxHeight: maxHeight,
         };
 
+        // 更新垂直夸张
         function updateExaggeration() {
           scene.verticalExaggeration = Number(viewModel.exaggeration);
         }
 
+        // 设置Knockout绑定
         Cesium.knockout.track(viewModel);
         const toolbar = document.getElementById("toolbar");
         Cesium.knockout.applyBindings(viewModel, toolbar);
@@ -346,6 +370,7 @@
           }
         }
 
+        // 设置初始相机视角
         scene.camera.setView({
           destination: new Cesium.Cartesian3(
             -3877002.181627189,
