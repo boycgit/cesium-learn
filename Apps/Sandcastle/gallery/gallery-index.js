@@ -1,6 +1,6 @@
 // This file is automatically rebuilt by the Cesium build process.
-const hello_world_index = 116;
-const VERSION = '1.120';
+const hello_world_index = 124;
+const VERSION = '1.124';
 const gallery_demos = [{
   "name": "3D Models",
   "isNew": false,
@@ -70,6 +70,10 @@ const gallery_demos = [{
   "isNew": false,
   "img": "3D Tiles Interior.jpg"
 }, {
+  "name": "3D Tiles NGA GPM Visualization",
+  "isNew": true,
+  "img": "3D Tiles NGA GPM Visualization.jpg"
+}, {
   "name": "3D Tiles Photogrammetry",
   "isNew": false,
   "img": "3D Tiles Photogrammetry.jpg"
@@ -102,9 +106,21 @@ const gallery_demos = [{
   "isNew": false,
   "img": "3D Tiles Vertical Exaggeration.jpg"
 }, {
+  "name": "AEC Architectural Design",
+  "isNew": true,
+  "img": "AEC Architectural Design.jpg"
+}, {
   "name": "AEC Clipping",
   "isNew": false,
   "img": "AEC Clipping.jpg"
+}, {
+  "name": "AEC Isolate by Category",
+  "isNew": true,
+  "img": "AEC Isolate by Category.jpg"
+}, {
+  "name": "AEC Metadata Styling",
+  "isNew": true,
+  "img": "AEC Metadata Styling.jpg"
 }, {
   "name": "Aerometrex San Francisco",
   "isNew": false,
@@ -262,6 +278,10 @@ const gallery_demos = [{
   "isNew": false,
   "img": "CZML ZIndex.jpg"
 }, {
+  "name": "Callback Position Property",
+  "isNew": false,
+  "img": "Callback Position Property.jpg"
+}, {
   "name": "Callback Property",
   "isNew": false,
   "img": "Callback Property.jpg"
@@ -402,6 +422,10 @@ const gallery_demos = [{
   "isNew": false,
   "img": "Elevation Band Material.jpg"
 }, {
+  "name": "Entity tracking",
+  "isNew": true,
+  "img": "Entity tracking.jpg"
+}, {
   "name": "Export KML",
   "isNew": false,
   "img": "Export KML.jpg"
@@ -409,6 +433,10 @@ const gallery_demos = [{
   "name": "FXAA",
   "isNew": false,
   "img": "FXAA.jpg"
+}, {
+  "name": "Fog",
+  "isNew": false,
+  "img": "Fog.jpg"
 }, {
   "name": "Fog Post Process",
   "isNew": false,
@@ -441,6 +469,10 @@ const gallery_demos = [{
   "name": "Globe Materials",
   "isNew": false,
   "img": "Globe Materials.jpg"
+}, {
+  "name": "Globe Materials – Water Mask Elevation Map",
+  "isNew": false,
+  "img": "Globe Materials – Water Mask Elevation Map.jpg"
 }, {
   "name": "Globe Translucency",
   "isNew": false,
@@ -575,7 +607,7 @@ const gallery_demos = [{
   "img": "Montreal Point Cloud.jpg"
 }, {
   "name": "Moon",
-  "isNew": true,
+  "isNew": false,
   "img": "Moon.jpg"
 }, {
   "name": "Multi-part CZML",
@@ -711,7 +743,7 @@ const gallery_demos = [{
   "img": "Spheres and Ellipsoids.jpg"
 }, {
   "name": "SplitDirection",
-  "isNew": true,
+  "isNew": false,
   "img": "SplitDirection.jpg"
 }, {
   "name": "Star Burst",
@@ -777,5 +809,9 @@ const gallery_demos = [{
   "name": "glTF PBR Extensions",
   "isNew": false,
   "img": "glTF PBR Extensions.jpg"
+}, {
+  "name": "iModel Mesh Export Service",
+  "isNew": true,
+  "img": "iModel Mesh Export Service.jpg"
 }];
 const has_new_gallery_demos = true;

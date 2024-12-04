@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.120
+ * Version 1.124
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,37 +25,37 @@
 
 import {
   PrimitivePipeline_default
-} from "./chunk-VRZ46QZ5.js";
+} from "./chunk-W2E67GLE.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-MMV6TO3P.js";
-import "./chunk-QYQIVZBU.js";
-import "./chunk-PNFHVBSF.js";
-import "./chunk-J7MQUQJY.js";
-import "./chunk-SAPFXU5X.js";
-import "./chunk-TF776XCO.js";
-import "./chunk-A5CODJ4M.js";
-import "./chunk-EB7PNZTK.js";
-import "./chunk-JYQNWIQQ.js";
-import "./chunk-IUROUBPA.js";
-import "./chunk-ELI4BUOT.js";
-import "./chunk-OXALEQPI.js";
-import "./chunk-FQPSOOPH.js";
-import "./chunk-T6LPN7RI.js";
-import "./chunk-R4OIEIPE.js";
-import "./chunk-RHBWXX7C.js";
-import "./chunk-ZIKGV7EL.js";
+} from "./chunk-YDEZMDB7.js";
+import "./chunk-FLPIQK2R.js";
+import "./chunk-NVFEDMX4.js";
+import "./chunk-RR4M3ZGF.js";
+import "./chunk-RIQGQMS4.js";
+import "./chunk-CQDSGG3R.js";
+import "./chunk-3VHIUS7I.js";
+import "./chunk-Z7OYBX6P.js";
+import "./chunk-22NU5WU5.js";
+import "./chunk-PMNQULFU.js";
+import "./chunk-2OD54CUD.js";
+import "./chunk-BFNZUP2C.js";
+import "./chunk-H4Y7ADFL.js";
+import "./chunk-XQP37R5E.js";
+import "./chunk-RGZWZ4PP.js";
+import "./chunk-ZIWULRRD.js";
+import "./chunk-2TSF7N76.js";
 import {
   defaultValue_default
-} from "./chunk-BAVI3ZS2.js";
+} from "./chunk-BLTSMJIP.js";
 import {
   DeveloperError_default
-} from "./chunk-TGY6H6N6.js";
+} from "./chunk-FANORJU6.js";
 import {
   __glob,
   __require,
   defined_default
-} from "./chunk-N4QEHO3U.js";
+} from "./chunk-S4SCKDK4.js";
 
 // import("./**/*.js") in packages/engine/Source/Workers/createGeometry.js
 var globImport_js = __glob({
@@ -148,10 +148,9 @@ async function createGeometry(parameters, transferableObjects) {
       throw new DeveloperError_default("Must only set moduleName or modulePath");
     }
     if (defined_default(moduleName) || defined_default(modulePath)) {
-      resultsOrPromises[i] = getModule(
-        moduleName,
-        modulePath
-      ).then((createFunction) => createFunction(geometry, task.offset));
+      resultsOrPromises[i] = getModule(moduleName, modulePath).then(
+        (createFunction) => createFunction(geometry, task.offset)
+      );
     } else {
       resultsOrPromises[i] = geometry;
     }

@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.120
+ * Version 1.124
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -26,55 +26,55 @@
 import {
   EllipsoidalOccluder_default,
   TerrainEncoding_default
-} from "./chunk-OXSI7N4C.js";
+} from "./chunk-MSKD73KW.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-MMV6TO3P.js";
+} from "./chunk-YDEZMDB7.js";
 import {
   WebMercatorProjection_default
-} from "./chunk-QYQIVZBU.js";
+} from "./chunk-FLPIQK2R.js";
 import {
   OrientedBoundingBox_default
-} from "./chunk-POSRARY7.js";
-import "./chunk-J7MQUQJY.js";
-import "./chunk-X2ZQ7RJR.js";
+} from "./chunk-KCCTLUKK.js";
+import "./chunk-RR4M3ZGF.js";
+import "./chunk-DIAH2ZTB.js";
 import {
   AxisAlignedBoundingBox_default
-} from "./chunk-XZZNKIEV.js";
-import "./chunk-TF776XCO.js";
-import "./chunk-A5CODJ4M.js";
+} from "./chunk-OUIF26MQ.js";
+import "./chunk-CQDSGG3R.js";
+import "./chunk-3VHIUS7I.js";
 import {
   BoundingSphere_default
-} from "./chunk-ELI4BUOT.js";
+} from "./chunk-2OD54CUD.js";
 import {
   Matrix4_default,
   Rectangle_default,
   Transforms_default
-} from "./chunk-OXALEQPI.js";
-import "./chunk-FQPSOOPH.js";
+} from "./chunk-BFNZUP2C.js";
+import "./chunk-H4Y7ADFL.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Ellipsoid_default
-} from "./chunk-T6LPN7RI.js";
+} from "./chunk-XQP37R5E.js";
 import {
   Math_default
-} from "./chunk-R4OIEIPE.js";
-import "./chunk-RHBWXX7C.js";
+} from "./chunk-RGZWZ4PP.js";
+import "./chunk-ZIWULRRD.js";
 import {
   RuntimeError_default
-} from "./chunk-ZIKGV7EL.js";
+} from "./chunk-2TSF7N76.js";
 import {
   defaultValue_default
-} from "./chunk-BAVI3ZS2.js";
+} from "./chunk-BLTSMJIP.js";
 import {
   DeveloperError_default
-} from "./chunk-TGY6H6N6.js";
+} from "./chunk-FANORJU6.js";
 import {
   __commonJS,
   __toESM,
   defined_default
-} from "./chunk-N4QEHO3U.js";
+} from "./chunk-S4SCKDK4.js";
 
 // node_modules/lerc/LercDecode.js
 var require_LercDecode = __commonJS({
@@ -1506,10 +1506,12 @@ var require_LercDecode = __commonJS({
             var s = 0;
             switch (t) {
               case 0:
+              //ubyte
               case 1:
                 s = 1;
                 break;
               case 2:
+              //short
               case 3:
                 s = 2;
                 break;
@@ -1530,10 +1532,12 @@ var require_LercDecode = __commonJS({
             var t = dt;
             switch (dt) {
               case 2:
+              //short
               case 4:
                 t = dt - tc;
                 break;
               case 3:
+              //ushort
               case 5:
                 t = dt - 2 * tc;
                 break;
@@ -2018,9 +2022,7 @@ HeightmapTessellator.computeVertices = function(options) {
   let southMercatorY;
   let oneOverMercatorHeight;
   if (includeWebMercatorT) {
-    southMercatorY = WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(
-      geographicSouth
-    );
+    southMercatorY = WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(geographicSouth);
     oneOverMercatorHeight = 1 / (WebMercatorProjection_default.geodeticLatitudeToMercatorAngle(geographicNorth) - southMercatorY);
   }
   const minimum = minimumScratch;
@@ -2166,9 +2168,7 @@ HeightmapTessellator.computeVertices = function(options) {
         webMercatorTs[index] = webMercatorT;
       }
       if (includeGeodeticSurfaceNormals) {
-        geodeticSurfaceNormals[index] = ellipsoid.geodeticSurfaceNormal(
-          position
-        );
+        geodeticSurfaceNormals[index] = ellipsoid.geodeticSurfaceNormal(position);
       }
     }
   }

@@ -1255,7 +1255,7 @@ export class BoundingSphere {
     static projectTo2D(sphere: BoundingSphere, projection?: any, result?: BoundingSphere): BoundingSphere;
     /**
      * Determines whether or not a sphere is hidden from view by the occluder.
-     * @param sphere - The bounding sphere surrounding the occludee object.
+     * @param sphere - The bounding sphere surrounding the occluded object.
      * @param occluder - The occluder.
      * @returns <code>true</code> if the sphere is not visible; otherwise <code>false</code>.
      */
@@ -3069,7 +3069,7 @@ export const Check: {
       lessThanOrEquals(
         name: string,
         test: any,
-        limit: number
+        limit: number,
       ): asserts test is number;
       /**
        * Throws if test is not typeof 'number' and greater than limit
@@ -3082,7 +3082,7 @@ export const Check: {
       greaterThan(
         name: string,
         test: any,
-        limit: number
+        limit: number,
       ): asserts test is number;
       /**
        * Throws if test is not typeof 'number' and greater than or equal to limit
@@ -3095,7 +3095,7 @@ export const Check: {
       greaterThanOrEquals(
         name: string,
         test: any,
-        limit: number
+        limit: number,
       ): asserts test is number;
       /**
        * Throws if test1 and test2 is not typeof 'number' and not equal in value
@@ -4589,6 +4589,10 @@ export class CompressedTextureBuffer {
      */
     readonly bufferView: Uint8Array;
     /**
+     * The compressed texture buffer. Alias for bufferView.
+     */
+    readonly arrayBufferView: Uint8Array;
+    /**
      * Creates a shallow clone of a compressed texture buffer.
      * @param object - The compressed texture buffer to be cloned.
      * @returns A shallow clone of the compressed texture buffer.
@@ -6029,7 +6033,7 @@ export class EllipsoidGeodesic {
     interpolateUsingFraction(fraction: number, result?: Cartographic): Cartographic;
     /**
      * Provides the location of a point at the indicated distance along the geodesic.
-     * @param distance - The distance from the inital point to the point of interest along the geodesic
+     * @param distance - The distance from the initial point to the point of interest along the geodesic
      * @param [result] - The object in which to store the result.
      * @returns The location of the point along the geodesic.
      */
@@ -6969,17 +6973,17 @@ export class Geometry {
      * Optional index data that - along with {@link Geometry#primitiveType} -
      * determines the primitives in the geometry.
      */
-    indices: any[];
+    indices: any[] | undefined;
     /**
      * The type of primitives in the geometry.  This is most often {@link PrimitiveType.TRIANGLES},
      * but can varying based on the specific geometry.
      */
-    primitiveType: PrimitiveType;
+    primitiveType: PrimitiveType | undefined;
     /**
      * An optional bounding sphere that fully encloses the geometry.  This is
      * commonly used for culling.
      */
-    boundingSphere: BoundingSphere;
+    boundingSphere: BoundingSphere | undefined;
     /**
      * Computes the number of vertices in a geometry.  The runtime is linear with
      * respect to the number of attributes in a vertex, not the number of vertices.
@@ -7011,17 +7015,17 @@ export class Geometry {
  *   primitiveType : Cesium.PrimitiveType.LINE_LOOP
  * });
  * @param [options] - Object with the following properties:
- * @param [options.componentDatatype] - The datatype of each component in the attribute, e.g., individual elements in values.
- * @param [options.componentsPerAttribute] - A number between 1 and 4 that defines the number of components in an attributes.
+ * @param options.componentDatatype - The datatype of each component in the attribute, e.g., individual elements in values.
+ * @param options.componentsPerAttribute - A number between 1 and 4 that defines the number of components in an attributes.
  * @param [options.normalize = false] - When <code>true</code> and <code>componentDatatype</code> is an integer format, indicate that the components should be mapped to the range [0, 1] (unsigned) or [-1, 1] (signed) when they are accessed as floating-point for rendering.
- * @param [options.values] - The values for the attributes stored in a typed array.
+ * @param options.values - The values for the attributes stored in a typed array.
  */
 export class GeometryAttribute {
     constructor(options?: {
-        componentDatatype?: ComponentDatatype;
-        componentsPerAttribute?: number;
+        componentDatatype: ComponentDatatype;
+        componentsPerAttribute: number;
         normalize?: boolean;
-        values?: number[] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+        values: number[] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
     });
     /**
      * The datatype of each component in the attribute, e.g., individual elements in
@@ -7092,42 +7096,42 @@ export class GeometryAttributes {
      * 64-bit floating-point (for precision).  3 components per attribute.
      * </p>
      */
-    position: GeometryAttribute;
+    position: GeometryAttribute | undefined;
     /**
      * The normal attribute (normalized), which is commonly used for lighting.
      * <p>
      * 32-bit floating-point.  3 components per attribute.
      * </p>
      */
-    normal: GeometryAttribute;
+    normal: GeometryAttribute | undefined;
     /**
      * The 2D texture coordinate attribute.
      * <p>
      * 32-bit floating-point.  2 components per attribute
      * </p>
      */
-    st: GeometryAttribute;
+    st: GeometryAttribute | undefined;
     /**
      * The bitangent attribute (normalized), which is used for tangent-space effects like bump mapping.
      * <p>
      * 32-bit floating-point.  3 components per attribute.
      * </p>
      */
-    bitangent: GeometryAttribute;
+    bitangent: GeometryAttribute | undefined;
     /**
      * The tangent attribute (normalized), which is used for tangent-space effects like bump mapping.
      * <p>
      * 32-bit floating-point.  3 components per attribute.
      * </p>
      */
-    tangent: GeometryAttribute;
+    tangent: GeometryAttribute | undefined;
     /**
      * The color attribute.
      * <p>
      * 8-bit unsigned integer. 4 components per attribute.
      * </p>
      */
-    color: GeometryAttribute;
+    color: GeometryAttribute | undefined;
 }
 
 /**
@@ -7202,7 +7206,7 @@ export class GeometryInstance {
     /**
      * User-defined object returned when the instance is picked or used to get/set per-instance attributes.
      */
-    id: any;
+    id: any | undefined;
     /**
      * Per-instance attributes like {@link ColorGeometryInstanceAttribute} or {@link ShowGeometryInstanceAttribute}.
      * {@link Geometry} attributes varying per vertex; these attributes are constant for the entire instance.
@@ -7462,7 +7466,7 @@ export class GoogleEarthEnterpriseMetadata {
     /**
      * True if imagery is sent as a protocol buffer, false if sent as plain images. If undefined we will try both.
      */
-    protoImagery: boolean;
+    protoImagery: boolean | undefined;
     /**
      * True if terrain is available.
      */
@@ -7718,6 +7722,27 @@ export class GoogleEarthEnterpriseTerrainProvider {
      * @param level - The level of the tile for which to request geometry.
      */
     loadTileDataAvailability(x: number, y: number, level: number): undefined;
+}
+
+/**
+ * Provides geocoding through Google.
+ * @param options - Object with the following properties:
+ * @param options.key - An API key to use with the Google geocoding service
+ */
+export class GoogleGeocoderService {
+    constructor(options: {
+        key: string;
+    });
+    /**
+     * Gets the credit to display after a geocode is performed. Typically this is used to credit
+     * the geocoder service.
+     */
+    readonly credit: Credit | undefined;
+    /**
+     * Get a list of possible locations that match a search string.
+     * @param query - The query to be sent to the geocoder service
+     */
+    geocode(query: string): Promise<GeocoderService.Result[]>;
 }
 
 /**
@@ -8360,6 +8385,37 @@ export class HermiteSpline {
 export namespace HilbertOrder { }
 
 /**
+ * Default settings for accessing the iTwin platform.
+ */
+export namespace ITwinPlatform {
+    /**
+     * Status states for a mesh-export export.
+     * Valid values are: <code>NotStarted</code>, <code>InProgress</code>, <code>Complete</code>, <code>Invalid</code>
+     */
+    enum ExportStatus {
+    }
+    /**
+     * Types of mesh-export exports. CesiumJS only supports loading <code>3DTILES</code> type exports.
+     * Valid values are: <code>IMODEL</code>, <code>CESIUM</code>, <code>3DTILES</code>
+     */
+    enum ExportType {
+    }
+    /**
+     * Types of Reality data
+     */
+    enum RealityDataType {
+    }
+    /**
+     * Gets or sets the default iTwin access token. This token should have the <code>itwin-platform</code> scope.
+     */
+    var defaultAccessToken: string | undefined;
+    /**
+     * Gets or sets the default iTwin API endpoint.
+     */
+    var apiEndpoint: string | Resource;
+}
+
+/**
  * Constants for WebGL index datatypes.  These corresponds to the
  * <code>type</code> parameter of {@link http://www.khronos.org/opengles/sdk/docs/man/xhtml/glDrawElements.xml|drawElements}.
  */
@@ -8679,23 +8735,48 @@ export namespace Ion {
 }
 
 /**
+ * Underlying geocoding services that can be used via Cesium ion.
+ */
+export enum IonGeocodeProviderType {
+    /**
+     * Google geocoder, for use with Google data.
+     */
+    GOOGLE = "GOOGLE",
+    /**
+     * Bing geocoder, for use with Bing data.
+     */
+    BING = "BING",
+    /**
+     * Use the default geocoder as set on the server.  Used when neither Bing or
+     * Google data is used.
+     */
+    DEFAULT = "DEFAULT"
+}
+
+/**
  * Provides geocoding through Cesium ion.
  * @param options - Object with the following properties:
  * @param options.scene - The scene
  * @param [options.accessToken = Ion.defaultAccessToken] - The access token to use.
  * @param [options.server = Ion.defaultServer] - The resource to the Cesium ion API server.
+ * @param [options.geocodeProviderType = IonGeocodeProviderType.DEFAULT] - The geocoder the Cesium ion API server should use to fulfill this request.
  */
 export class IonGeocoderService {
     constructor(options: {
         scene: Scene;
         accessToken?: string;
         server?: string | Resource;
+        geocodeProviderType?: IonGeocodeProviderType;
     });
     /**
      * Gets the credit to display after a geocode is performed. Typically this is used to credit
      * the geocoder service.
      */
     readonly credit: Credit | undefined;
+    /**
+     * The geocoding service that Cesium ion API server should use to fulfill geocding requests.
+     */
+    geocodeProviderType: IonGeocodeProviderType;
     /**
      * @param query - The query to be sent to the geocoder service
      * @param [type = GeocodeType.SEARCH] - The type of geocode to perform.
@@ -10827,8 +10908,8 @@ export class Matrix4 implements ArrayLike<number> {
      * Computes a Matrix4 instance representing an off center perspective transformation.
      * @param left - The number of meters to the left of the camera that will be in view.
      * @param right - The number of meters to the right of the camera that will be in view.
-     * @param bottom - The number of meters below of the camera that will be in view.
-     * @param top - The number of meters above of the camera that will be in view.
+     * @param bottom - The number of meters below the camera that will be in view.
+     * @param top - The number of meters above the camera that will be in view.
      * @param near - The distance to the near plane in meters.
      * @param far - The distance to the far plane in meters.
      * @param result - The object in which the result will be stored.
@@ -11990,11 +12071,11 @@ export class OrthographicFrustum {
     /**
      * The horizontal width of the frustum in meters.
      */
-    width: number;
+    width: number | undefined;
     /**
      * The aspect ratio of the frustum's width to it's height.
      */
-    aspectRatio: number;
+    aspectRatio: number | undefined;
     /**
      * The distance of the near plane.
      */
@@ -12113,19 +12194,19 @@ export class OrthographicOffCenterFrustum {
     /**
      * The left clipping plane.
      */
-    left: number;
+    left: number | undefined;
     /**
      * The right clipping plane.
      */
-    right: number;
+    right: number | undefined;
     /**
      * The top clipping plane.
      */
-    top: number;
+    top: number | undefined;
     /**
      * The bottom clipping plane.
      */
-    bottom: number;
+    bottom: number | undefined;
     /**
      * The distance of the near plane.
      */
@@ -12315,11 +12396,11 @@ export class PerspectiveFrustum {
      * as the horizontal FOV if the width is greater than the height, otherwise
      * it will be the vertical FOV.
      */
-    fov: number;
+    fov: number | undefined;
     /**
      * The aspect ratio of the frustum's width to it's height.
      */
-    aspectRatio: number;
+    aspectRatio: number | undefined;
     /**
      * The distance of the near plane.
      */
@@ -12358,6 +12439,7 @@ export class PerspectiveFrustum {
     static unpack(array: number[], startingIndex?: number, result?: PerspectiveFrustum): PerspectiveFrustum;
     /**
      * Gets the perspective projection matrix computed from the view frustum.
+     * If necessary, the projection matrix will be recomputed.
      */
     readonly projectionMatrix: Matrix4;
     /**
@@ -12367,7 +12449,7 @@ export class PerspectiveFrustum {
     /**
      * Gets the angle of the vertical field of view, in radians.
      */
-    readonly fovy: number;
+    readonly fovy: number | undefined;
     /**
      * Creates a culling volume for this frustum.
      * @example
@@ -12463,19 +12545,19 @@ export class PerspectiveOffCenterFrustum {
     /**
      * Defines the left clipping plane.
      */
-    left: number;
+    left: number | undefined;
     /**
      * Defines the right clipping plane.
      */
-    right: number;
+    right: number | undefined;
     /**
      * Defines the top clipping plane.
      */
-    top: number;
+    top: number | undefined;
     /**
      * Defines the bottom clipping plane.
      */
-    bottom: number;
+    bottom: number | undefined;
     /**
      * The distance of the near plane.
      */
@@ -12486,6 +12568,7 @@ export class PerspectiveOffCenterFrustum {
     far: number;
     /**
      * Gets the perspective projection matrix computed from the view frustum.
+     * The projection matrix will be recomputed if any frustum parameters have changed.
      */
     readonly projectionMatrix: Matrix4;
     /**
@@ -14283,11 +14366,6 @@ export class Rectangle {
      * @returns <code>true</code> if the Rectangles are within the provided epsilon, <code>false</code> otherwise.
      */
     equalsEpsilon(other?: Rectangle, epsilon?: number): boolean;
-    /**
-     * Checks a Rectangle's properties and throws if they are not in valid ranges.
-     * @param rectangle - The rectangle to validate
-     */
-    static validate(rectangle: Rectangle): void;
     /**
      * Computes the southwest corner of a rectangle.
      * @param rectangle - The rectangle for which to find the corner
@@ -17138,6 +17216,34 @@ export enum TimeStandard {
 }
 
 /**
+ * Constants for identifying well-known tracking reference frames.
+ */
+export enum TrackingReferenceFrame {
+    /**
+     * Auto-detect algorithm. The reference frame used to track the Entity will
+     * be automatically selected based on its trajectory: near-surface slow moving
+     * objects will be tracked in the entity's local east-north-up reference
+     * frame, while faster objects like satellites will use VVLH (Vehicle Velocity,
+     * Local Horizontal).
+     */
+    AUTODETECT = 0,
+    /**
+     * The entity's local East-North-Up reference frame.
+     */
+    ENU = 1,
+    /**
+     * The entity's inertial reference frame. If entity has no defined orientation
+     * property, it falls back to auto-detect algorithm.
+     */
+    INERTIAL = 2,
+    /**
+     * The entity's inertial reference frame with orientation fixed to its
+     * {@link VelocityOrientationProperty}, ignoring its own orientation.
+     */
+    VELOCITY = 3
+}
+
+/**
  * Contains functions for transforming positions to various reference frames.
  */
 export namespace Transforms {
@@ -19053,6 +19159,67 @@ export class BoxGraphics {
 }
 
 /**
+ * A {@link PositionProperty} whose value is lazily evaluated by a callback function.
+ * @param callback - The function to be called when the position property is evaluated.
+ * @param isConstant - <code>true</code> when the callback function returns the same value every time, <code>false</code> if the value will change.
+ * @param [referenceFrame = ReferenceFrame.FIXED] - The reference frame in which the position is defined.
+ */
+export class CallbackPositionProperty {
+    constructor(callback: CallbackPositionProperty.Callback, isConstant: boolean, referenceFrame?: ReferenceFrame);
+    /**
+     * Gets a value indicating if this property is constant.
+     */
+    readonly isConstant: boolean;
+    /**
+     * Gets the event that is raised whenever the definition of this property changes.
+     * The definition is considered to have changed if a call to getValue would return
+     * a different result for the same time.
+     */
+    readonly definitionChanged: Event;
+    /**
+     * Gets the reference frame in which the position is defined.
+     */
+    referenceFrame: ReferenceFrame;
+    /**
+     * Gets the value of the property at the provided time in the fixed frame.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
+     * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
+     * @returns The modified result parameter or a new instance if the result parameter was not supplied.
+     */
+    getValue(time?: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
+    /**
+     * Sets the callback to be used.
+     * @param callback - The function to be called when the property is evaluated.
+     * @param isConstant - <code>true</code> when the callback function returns the same value every time, <code>false</code> if the value will change.
+     */
+    setCallback(callback: CallbackPositionProperty.Callback, isConstant: boolean): void;
+    /**
+     * Gets the value of the property at the provided time and in the provided reference frame.
+     * @param time - The time for which to retrieve the value.
+     * @param referenceFrame - The desired referenceFrame of the result.
+     * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
+     * @returns The modified result parameter or a new instance if the result parameter was not supplied.
+     */
+    getValueInReferenceFrame(time: JulianDate, referenceFrame: ReferenceFrame, result?: Cartesian3): Cartesian3 | undefined;
+    /**
+     * Compares this property to the provided property and returns
+     * <code>true</code> if they are equal, <code>false</code> otherwise.
+     * @param [other] - The other property.
+     * @returns <code>true</code> if left and right are equal, <code>false</code> otherwise.
+     */
+    equals(other?: Property): boolean;
+}
+
+export namespace CallbackPositionProperty {
+    /**
+     * A function that returns the value of the position property.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
+     * @param [result] - The object to store the value into. If omitted, the function must create and return a new instance.
+     */
+    type Callback = (time?: JulianDate, result?: Cartesian3) => Cartesian3 | undefined;
+}
+
+/**
  * A {@link Property} whose value is lazily evaluated by a callback function.
  * @param callback - The function to be called when the property is evaluated.
  * @param isConstant - <code>true</code> when the callback function returns the same value every time, <code>false</code> if the value will change.
@@ -19070,11 +19237,11 @@ export class CallbackProperty {
     readonly definitionChanged: Event;
     /**
      * Gets the value of the property.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied or is unsupported.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Sets the callback to be used.
      * @param callback - The function to be called when the property is evaluated.
@@ -19093,10 +19260,10 @@ export class CallbackProperty {
 export namespace CallbackProperty {
     /**
      * A function that returns the value of the property.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into. If omitted, the function must create and return a new instance.
      */
-    type Callback = (time: JulianDate, result?: any) => any;
+    type Callback = (time?: JulianDate, result?: any) => any;
 }
 
 export namespace Cesium3DTilesetGraphics {
@@ -19220,11 +19387,11 @@ export class CheckerboardMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -19263,11 +19430,11 @@ export class ColorMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -19436,11 +19603,11 @@ export class CompositeMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -19480,11 +19647,11 @@ export class CompositePositionProperty {
     referenceFrame: ReferenceFrame;
     /**
      * Gets the value of the property at the provided time in the fixed frame.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
+    getValue(time?: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
     /**
      * Gets the value of the property at the provided time and in the provided reference frame.
      * @param time - The time for which to retrieve the value.
@@ -19545,11 +19712,11 @@ export class CompositeProperty {
     intervals: TimeIntervalCollection;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -19584,11 +19751,11 @@ export class ConstantPositionProperty {
     referenceFrame: ReferenceFrame;
     /**
      * Gets the value of the property at the provided time in the fixed frame.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Sets the value of the property.
      * @param value - The property value.
@@ -20837,6 +21004,7 @@ export namespace Entity {
      * @property [name] - A human readable name to display to users. It does not have to be unique.
      * @property [availability] - The availability, if any, associated with this object.
      * @property [show] - A boolean value indicating if the entity and its children are displayed.
+     * @property [trackingReferenceFrame = TrackingReferenceFrame.AUTODETECT] - The reference frame used when this entity is being tracked. <br/> If <code>undefined</code>, reference frame is determined based on entity velocity: near-surface slow moving entities are tracked using the local east-north-up reference frame, whereas fast moving entities such as satellites are tracked using VVLH (Vehicle Velocity, Local Horizontal).
      * @property [description] - A string Property specifying an HTML description for this entity.
      * @property [position] - A Property specifying the entity position.
      * @property [orientation = Transforms.eastNorthUpToFixedFrame(position)] - A Property specifying the entity orientation in respect to Earth-fixed-Earth-centered (ECEF). If undefined, east-north-up at entity position is used.
@@ -20866,8 +21034,9 @@ export namespace Entity {
         name?: string;
         availability?: TimeIntervalCollection;
         show?: boolean;
+        trackingReferenceFrame?: TrackingReferenceFrame;
         description?: Property | string;
-        position?: PositionProperty | Cartesian3;
+        position?: PositionProperty | Cartesian3 | CallbackPositionProperty;
         orientation?: Property | Quaternion;
         viewFrom?: Property | Cartesian3;
         parent?: Entity;
@@ -20932,6 +21101,10 @@ export class Entity {
      * the entity is only displayed if the parent entity's show property is also true.
      */
     show: boolean;
+    /**
+     * Gets or sets the entity's tracking reference frame.
+     */
+    trackingReferenceFrame: TrackingReferenceFrame;
     /**
      * Gets whether this entity is being displayed, taking into account
      * the visibility of any ancestor entities.
@@ -21799,11 +21972,11 @@ export class GridMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -21890,11 +22063,11 @@ export class ImageMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -22539,11 +22712,11 @@ export class MaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -22559,6 +22732,7 @@ export namespace ModelGraphics {
      * @property [show = true] - A boolean Property specifying the visibility of the model.
      * @property [uri] - A string or Resource Property specifying the URI of the glTF asset.
      * @property [scale = 1.0] - A numeric Property specifying a uniform linear scale.
+     * @property [enableVerticalExaggeration = true] - A boolean Property specifying if the model is exaggerated along the ellipsoid normal when {@link Scene.verticalExaggeration} is set to a value other than <code>1.0</code>.
      * @property [minimumPixelSize = 0.0] - A numeric Property specifying the approximate minimum pixel size of the model regardless of zoom.
      * @property [maximumScale] - The maximum scale size of a model. An upper limit for minimumPixelSize.
      * @property [incrementallyLoadTextures = true] - Determine if textures may continue to stream in after the model is loaded.
@@ -22583,6 +22757,7 @@ export namespace ModelGraphics {
         show?: Property | boolean;
         uri?: Property | string | Resource;
         scale?: Property | number;
+        enableVerticalExaggeration?: Property | boolean;
         minimumPixelSize?: Property | number;
         maximumScale?: Property | number;
         incrementallyLoadTextures?: Property | boolean;
@@ -22638,6 +22813,10 @@ export class ModelGraphics {
      * values less than 1.0 decrease it.
      */
     scale: Property | undefined;
+    /**
+     * Gets or sets the boolean Property specifying if the model is exaggerated along the ellipsoid normal when {@link Scene.verticalExaggeration} is set to a value other than <code>1.0</code>.
+     */
+    enableVerticalExaggeration: Property | undefined;
     /**
      * Gets or sets the numeric Property specifying the approximate minimum
      * pixel size of the model regardless of zoom. This can be used to ensure that
@@ -22803,11 +22982,11 @@ export class NodeTransformationProperty {
     scale: Property | undefined;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: TranslationRotationScale): TranslationRotationScale;
+    getValue(time?: JulianDate, result?: TranslationRotationScale): TranslationRotationScale;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -23388,11 +23567,11 @@ export class PolylineArrowMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -23452,11 +23631,11 @@ export class PolylineDashMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -23629,11 +23808,11 @@ export class PolylineGlowMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -23800,11 +23979,11 @@ export class PolylineOutlineMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -23997,11 +24176,11 @@ export class PositionProperty {
     referenceFrame: ReferenceFrame;
     /**
      * Gets the value of the property at the provided time in the fixed frame.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
+    getValue(time?: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
     /**
      * Gets the value of the property at the provided time and in the provided reference frame.
      * @param time - The time for which to retrieve the value.
@@ -24044,11 +24223,11 @@ export class PositionPropertyArray {
     referenceFrame: ReferenceFrame;
     /**
      * Gets the value of the property.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: Cartesian3[]): Cartesian3[];
+    getValue(time?: JulianDate, result?: Cartesian3[]): Cartesian3[];
     /**
      * Gets the value of the property at the provided time and in the provided reference frame.
      * @param time - The time for which to retrieve the value.
@@ -24090,11 +24269,11 @@ export class Property {
     readonly definitionChanged: Event;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -24124,11 +24303,11 @@ export class PropertyArray {
     readonly definitionChanged: Event;
     /**
      * Gets the value of the property.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter, which is an array of values produced by evaluating each of the contained properties at the given time or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: object[]): object[];
+    getValue(time?: JulianDate, result?: object[]): object[];
     /**
      * Sets the value of the property.
      * @param value - An array of Property instances.
@@ -24188,12 +24367,12 @@ export class PropertyBag implements Record<string, any> {
     /**
      * Gets the value of this property.  Each contained property will be evaluated at the given time, and the overall
      * result will be an object, mapping property names to those values.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * Note that any properties in result which are not part of this PropertyBag will be left as-is.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Assigns each unassigned property on this object to the value
      * of the same property on the provided source object.
@@ -24459,11 +24638,11 @@ export class ReferenceProperty {
     static fromString(targetCollection: EntityCollection, referenceString: string): ReferenceProperty;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Gets the value of the property at the provided time and in the provided reference frame.
      * This method is only valid if the property being referenced is a {@link PositionProperty}.
@@ -24609,11 +24788,11 @@ export class SampledPositionProperty {
     backwardExtrapolationDuration: number;
     /**
      * Gets the position at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
+    getValue(time?: JulianDate, result?: Cartesian3): Cartesian3 | undefined;
     /**
      * Gets the position at the provided time and in the provided reference frame.
      * @param time - The time for which to retrieve the value.
@@ -24760,11 +24939,11 @@ export class SampledProperty {
     backwardExtrapolationDuration: number;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Sets the algorithm and degree to use when interpolating a value.
      * @param [options] - Object with the following properties:
@@ -24789,6 +24968,12 @@ export class SampledProperty {
      * @param [derivativeValues] - An array where each item is the array of derivatives at the equivalent time index.
      */
     addSamples(times: JulianDate[], values: Packable[], derivativeValues?: any[][]): void;
+    /**
+     * Retrieves the time of the provided sample associated with the index. A negative index accesses the list of samples in reverse order.
+     * @param index - The index of samples list.
+     * @returns The JulianDate time of the sample, or undefined if failed.
+     */
+    getSample(index: number): JulianDate | undefined;
     /**
      * Adds samples as a single packed array where each new sample is represented as a date,
      * followed by the packed representation of the corresponding value and derivatives.
@@ -24875,11 +25060,11 @@ export class StripeMaterialProperty {
     getType(time: JulianDate): string;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -24930,11 +25115,11 @@ export class TimeIntervalCollectionPositionProperty {
     readonly referenceFrame: ReferenceFrame;
     /**
      * Gets the value of the property at the provided time in the fixed frame.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): Cartesian3 | undefined;
+    getValue(time?: JulianDate, result?: any): Cartesian3 | undefined;
     /**
      * Gets the value of the property at the provided time and in the provided reference frame.
      * @param time - The time for which to retrieve the value.
@@ -25003,11 +25188,11 @@ export class TimeIntervalCollectionProperty {
     readonly intervals: TimeIntervalCollection;
     /**
      * Gets the value of the property at the provided time.
-     * @param time - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
-    getValue(time: JulianDate, result?: any): any;
+    getValue(time?: JulianDate, result?: any): any;
     /**
      * Compares this property to the provided property and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
@@ -25051,7 +25236,7 @@ export class VelocityOrientationProperty {
     ellipsoid: Property | undefined;
     /**
      * Gets the value of the property at the provided time.
-     * @param [time] - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
@@ -25103,7 +25288,7 @@ export class VelocityVectorProperty {
     normalize: boolean;
     /**
      * Gets the value of the property at the provided time.
-     * @param [time] - The time for which to retrieve the value.
+     * @param [time = JulianDate.now()] - The time for which to retrieve the value. If omitted, the current system time is used.
      * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
      * @returns The modified result parameter or a new instance if the result parameter was not supplied.
      */
@@ -25879,6 +26064,12 @@ export class Atmosphere {
      * be used for dynamically lighting all atmosphere-related rendering effects.
      */
     dynamicLighting: DynamicAtmosphereLightingType;
+    /**
+     * Returns <code>true</code> if the atmosphere shader requires a color correct step.
+     * @param atmosphere - The atmosphere instance to check
+     * @returns true if the atmosphere shader requires a color correct step
+     */
+    static requiresColorCorrect(atmosphere: Atmosphere): boolean;
 }
 
 /**
@@ -29071,6 +29262,7 @@ export namespace Cesium3DTileset {
      * @property [debugShowRenderingStatistics = false] - For debugging only. When true, draws labels to indicate the number of commands, points, triangles and features for each tile.
      * @property [debugShowMemoryUsage = false] - For debugging only. When true, draws labels to indicate the texture and geometry memory in megabytes used by each tile.
      * @property [debugShowUrl = false] - For debugging only. When true, draws labels to indicate the url of each tile.
+     * @param [options.environmentMapOptions] - The properties for managing dynamic environment maps on this model.
      */
     type ConstructorOptions = {
         show?: boolean;
@@ -29838,6 +30030,14 @@ export class Cesium3DTileset {
      * The properties for managing image-based lighting on this tileset.
      */
     imageBasedLighting: ImageBasedLighting;
+    /**
+     * The properties for managing dynamic environment maps on this model. Affects lighting.
+     * @example
+     * // Change the ground color used for a tileset's environment map to a forest green
+     * const environmentMapManager = tileset.environmentMapManager;
+     * environmentMapManager.groundColor = Cesium.Color.fromCssColorString("#203b34");
+     */
+    readonly environmentMapManager: DynamicEnvironmentMapManager;
     /**
      * Indicates that only the tileset's vector tiles should be used for classification.
      */
@@ -31339,6 +31539,57 @@ export enum DepthFunction {
 }
 
 /**
+ * Returns the type that the given class property has in a GLSL shader.
+ *
+ * It returns the same string as `PropertyTextureProperty.prototype.getGlslType`
+ * for a property texture property with the given class property
+ * @param classProperty - The class property
+ * @returns The GLSL shader type string for the property
+ */
+export function getGlslType(classProperty: MetadataClassProperty): string;
+
+/**
+ * Returns a shader statement that applies the inverse of the
+ * value transform to the given value, based on the given offset
+ * and scale.
+ * @param input - The input value
+ * @param offset - The offset
+ * @param scale - The scale
+ * @returns The statement
+ */
+export function unapplyValueTransform(input: string, offset: string, scale: string): string;
+
+/**
+ * Returns a shader statement that applies the inverse of the
+ * normalization, based on the given component type
+ * @param input - The input value
+ * @param componentType - The component type
+ * @returns The statement
+ */
+export function unnormalize(input: string, componentType: string): string;
+
+/**
+ * Creates a shader statement that returns the value of the specified
+ * property, normalized to the range [0, 1].
+ * @param classProperty - The class property
+ * @param metadataProperty - The metadata property, either
+ * a `PropertyTextureProperty` or a `PropertyAttributeProperty`
+ * @returns The string
+ */
+export function getSourceValueStringScalar(classProperty: MetadataClassProperty, metadataProperty: any): string;
+
+/**
+ * Creates a shader statement that returns the value of the specified
+ * component of the given property, normalized to the range [0, 1].
+ * @param classProperty - The class property
+ * @param metadataProperty - The metadata property, either
+ * a `PropertyTextureProperty` or a `PropertyAttributeProperty`
+ * @param componentName - The name, in ["x", "y", "z", "w"]
+ * @returns The string
+ */
+export function getSourceValueStringComponent(classProperty: MetadataClassProperty, metadataProperty: any, componentName: string): string;
+
+/**
  * A light that gets emitted in a single direction from infinitely far away.
  * @param options - Object with the following properties:
  * @param options.direction - The direction in which light gets emitted.
@@ -31439,6 +31690,136 @@ export enum DynamicAtmosphereLightingType {
      * even if the scene uses a different light source.
      */
     SUNLIGHT = 2
+}
+
+export namespace DynamicEnvironmentMapManager {
+    /**
+     * Options for the DynamicEnvironmentMapManager constructor
+     * @property [enabled = true] - If true, the environment map and related properties will continue to update.
+     * @property [mipmapLevels = 10] - The number of mipmap levels to generate for specular maps. More mipmap levels will produce a higher resolution specular reflection.
+     * @property [maximumSecondsDifference = 3600] - The maximum amount of elapsed seconds before a new environment map is created.
+     * @property [maximumPositionEpsilon = 1000] - The maximum difference in position before a new environment map is created, in meters. Small differences in position will not visibly affect results.
+     * @property [atmosphereScatteringIntensity = 2.0] - The intensity of the scattered light emitted from the atmosphere. This should be adjusted relative to the value of {@link Scene.light} intensity.
+     * @property [gamma = 1.0] - The gamma correction to apply to the range of light emitted from the environment. 1.0 uses the unmodified emitted light color.
+     * @property [brightness = 1.0] - The brightness of light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0 makes the light darker while greater than 1.0 makes it brighter.
+     * @property [saturation = 1.0] - The saturation of the light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0 reduces the saturation while greater than 1.0 increases it.
+     * @property [groundColor = DynamicEnvironmentMapManager.AVERAGE_EARTH_GROUND_COLOR] - Solid color used to represent the ground.
+     * @property [groundAlbedo = 0.31] - The percentage of light reflected from the ground. The average earth albedo is 0.31.
+     */
+    type ConstructorOptions = {
+        enabled?: boolean;
+        mipmapLevels?: number;
+        maximumSecondsDifference?: number;
+        maximumPositionEpsilon?: number;
+        atmosphereScatteringIntensity?: number;
+        gamma?: number;
+        brightness?: number;
+        saturation?: number;
+        groundColor?: Color;
+        groundAlbedo?: number;
+    };
+}
+
+/**
+ * Generates an environment map at the given position based on scene's current lighting conditions. From this, it produces multiple levels of specular maps and spherical harmonic coefficients than can be used with {@link ImageBasedLighting} for models or tilesets.
+ * @example
+ * // Enable time-of-day environment mapping in a scene
+ * scene.atmosphere.dynamicLighting = Cesium.DynamicAtmosphereLightingType.SUNLIGHT;
+ *
+ * // Decrease the directional lighting contribution
+ * scene.light.intensity = 0.5
+ *
+ * // Increase the intensity of of the environment map lighting contribution
+ * const environmentMapManager = tileset.environmentMapManager;
+ * environmentMapManager.atmosphereScatteringIntensity = 3.0;
+ * @example
+ * // Change the ground color used for a model's environment map to a forest green
+ * const environmentMapManager = model.environmentMapManager;
+ * environmentMapManager.groundColor = Cesium.Color.fromCssColorString("#203b34");
+ * @param [options] - An object describing initialization options.
+ */
+export class DynamicEnvironmentMapManager {
+    constructor(options?: DynamicEnvironmentMapManager.ConstructorOptions);
+    /**
+     * If true, the environment map and related properties will continue to update.
+     */
+    enabled: boolean;
+    /**
+     * The maximum amount of elapsed seconds before a new environment map is created.
+     */
+    maximumSecondsDifference: number;
+    /**
+     * The maximum difference in position before a new environment map is created, in meters. Small differences in position will not visibly affect results.
+     */
+    maximumPositionEpsilon: number;
+    /**
+     * The intensity of the scattered light emitted from the atmosphere. This should be adjusted relative to the value of {@link Scene.light} intensity.
+     */
+    atmosphereScatteringIntensity: number;
+    /**
+     * The gamma correction to apply to the range of light emitted from the environment. 1.0 uses the unmodified incoming light color.
+     */
+    gamma: number;
+    /**
+     * The brightness of light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0
+     * makes the light darker while greater than 1.0 makes it brighter.
+     */
+    brightness: number;
+    /**
+     * The saturation of the light emitted from the environment. 1.0 uses the unmodified emitted environment color. Less than 1.0 reduces the
+     * saturation while greater than 1.0 increases it.
+     */
+    saturation: number;
+    /**
+     * Solid color used to represent the ground.
+     */
+    groundColor: Color;
+    /**
+     * The percentage of light reflected from the ground. The average earth albedo is 0.31.
+     */
+    groundAlbedo: number;
+    /**
+     * The position around which the environment map is generated.
+     */
+    position: Cartesian3 | undefined;
+    /**
+     * Returns true if this object was destroyed; otherwise, false.
+     * <br /><br />
+     * If this object was destroyed, it should not be used; calling any function other than
+     * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.
+     * @returns <code>true</code> if this object was destroyed; otherwise, <code>false</code>.
+     */
+    isDestroyed(): boolean;
+    /**
+     * Destroys the WebGL resources held by this object.  Destroying an object allows for deterministic
+     * release of WebGL resources, instead of relying on the garbage collector to destroy this object.
+     * <br /><br />
+     * Once an object is destroyed, it should not be used; calling any function other than
+     * <code>isDestroyed</code> will result in a {@link DeveloperError} exception.  Therefore,
+     * assign the return value (<code>undefined</code>) to the object as done in the example.
+     * @example
+     * mapManager = mapManager && mapManager.destroy();
+     */
+    destroy(): void;
+    /**
+     * Returns <code>true</code> if dynamic updates are supported in the current WebGL rendering context.
+     * Dynamic updates requires the EXT_color_buffer_float or EXT_color_buffer_half_float extension.
+     * @param scene - The object containing the rendering context
+     * @returns true if supported
+     */
+    static isDynamicUpdateSupported(scene: Scene): boolean;
+    /**
+     * Average hue of ground color on earth, a warm green-gray.
+     */
+    static readonly AVERAGE_EARTH_GROUND_COLOR: Color;
+    /**
+     * The default third order spherical harmonic coefficients used for the diffuse color of image-based lighting, a white ambient light with low intensity.
+     * <p>
+     * There are nine <code>Cartesian3</code> coefficients.
+     * The order of the coefficients is: L<sub>0,0</sub>, L<sub>1,-1</sub>, L<sub>1,0</sub>, L<sub>1,1</sub>, L<sub>2,-2</sub>, L<sub>2,-1</sub>, L<sub>2,0</sub>, L<sub>2,1</sub>, L<sub>2,2</sub>
+     * </p>
+     */
+    static readonly DEFAULT_SPHERICAL_HARMONIC_COEFFICIENTS: Cartesian3[];
 }
 
 /**
@@ -31624,11 +32005,18 @@ export class Fog {
     constructor();
     /**
      * <code>true</code> if fog is enabled, <code>false</code> otherwise.
+     * @example
+     * // Disable fog in the scene
+     * viewer.scene.fog.enabled = false;
      */
     enabled: boolean;
     /**
      * <code>true</code> if fog is renderable in shaders, <code>false</code> otherwise.
      * This allows to benefits from optimized tile loading strategy based on fog density without the actual visual rendering.
+     * @example
+     * // Use fog culling but don't render it
+     * viewer.scene.fog.enabled = true;
+     * viewer.scene.fog.renderable = false;
      */
     renderable: boolean;
     /**
@@ -31637,8 +32025,27 @@ export class Fog {
      * The more dense the fog is, the more aggressively the terrain is culled. For example, if the camera is a height of
      * 1000.0m above the ellipsoid, increasing the value to 3.0e-3 will cause many tiles close to the viewer be culled.
      * Decreasing the value will push the fog further from the viewer, but decrease performance as more of the terrain is rendered.
+     * @example
+     * // Double the default fog density
+     * viewer.scene.fog.density = 0.0012;
      */
     density: number;
+    /**
+     * A scalar used in the function to adjust density based on the height of the camera above the terrain.
+     */
+    heightScalar: number;
+    /**
+     * The maximum height fog is applied. If the camera is above this height fog will be disabled.
+     */
+    maxHeight: number;
+    /**
+     * A scalar that impacts the visual density of fog. This value does not impact the culling of terrain.
+     * Use in combination with the {@link Fog.density} to make fog appear more or less dense.
+     * @example
+     * // Increase fog appearance effect
+     * viewer.scene.fog.visualDensityScalar = 0.6;
+     */
+    visualDensityScalar: number;
     /**
      * A factor used to increase the screen space error of terrain tiles when they are partially in fog. The effect is to reduce
      * the number of terrain tiles requested for rendering. If set to zero, the feature will be disabled. If the value is increased
@@ -31651,6 +32058,11 @@ export class Fog {
      * the brightness at all.
      */
     minimumBrightness: number;
+    /**
+     * Exponent factor used in the function to adjust how density changes based on the height of the camera above the ellipsoid. Smaller values produce a more gradual transition as camera height increases.
+     * Value must be greater than 0.
+     */
+    heightFalloff: number;
 }
 
 /**
@@ -33568,6 +33980,40 @@ export class I3SSymbology {
 }
 
 /**
+ * Methods for loading iTwin platform data into CesiumJS
+ */
+export namespace ITwinData {
+    /**
+     * Create a {@link Cesium3DTileset} for the given iModel id using iTwin's Mesh Export API.
+     *
+     * If there is not a completed export available for the given iModel id, the returned promise will resolve to <code>undefined</code>.
+     * We recommend waiting 10-20 seconds and trying to load the tileset again.
+     * If all exports are Invalid this will throw an error.
+     * @example
+     * const tileset = await Cesium.ITwinData.createTilesetFromIModelId(iModelId);
+     * if (Cesium.defined(tileset)) {
+     *   viewer.scene.primitives.add(tileset);
+     * }
+     * @param iModelId - The id of the iModel to load
+     * @param [options] - Object containing options to pass to the internally created {@link Cesium3DTileset}.
+     * @returns A promise that will resolve to the created 3D tileset or <code>undefined</code> if there is no completed export for the given iModel id
+     */
+    function createTilesetFromIModelId(iModelId: string, options?: Cesium3DTileset.ConstructorOptions): Promise<Cesium3DTileset | undefined>;
+    /**
+     * Create a tileset for the specified reality data id. This function only works
+     * with 3D Tiles meshes and point clouds.
+     *
+     * If the <code>type</code> or <code>rootDocument</code> are not provided this function
+     * will first request the full metadata for the specified reality data to fill these values.
+     * @param iTwinId - The id of the iTwin to load data from
+     * @param realityDataId - The id of the reality data to load
+     * @param [type] - The type of this reality data
+     * @param [rootDocument] - The path of the root document for this reality data
+     */
+    function createTilesetForRealityDataId(iTwinId: string, realityDataId: string, type?: ITwinPlatform.RealityDataType, rootDocument?: string): Promise<Cesium3DTileset>;
+}
+
+/**
  * Properties for managing image-based lighting on tilesets and models.
  * Also manages the necessary resources and textures.
  * <p>
@@ -33577,7 +34023,6 @@ export class I3SSymbology {
  * Otherwise, the application is responsible for calling destroy().
  * </p>
  * @param [options.imageBasedLightingFactor = Cartesian2(1.0, 1.0)] - Scales diffuse and specular image-based lighting from the earth, sky, atmosphere and star skybox.
- * @param [options.luminanceAtZenith = 0.2] - The sun's luminance at the zenith in kilo candela per meter squared to use for this model's procedural environment map.
  * @param [options.sphericalHarmonicCoefficients] - The third order spherical harmonic coefficients used for the diffuse color of image-based lighting.
  * @param [options.specularEnvironmentMaps] - A URL to a KTX2 file that contains a cube map of the specular lighting and the convoluted specular mipmaps.
  */
@@ -33590,13 +34035,6 @@ export class ImageBasedLighting {
      * disable those light sources.
      */
     imageBasedLightingFactor: Cartesian2;
-    /**
-     * The sun's luminance at the zenith in kilo candela per meter squared
-     * to use for this model's procedural environment map. This is used when
-     * {@link ImageBasedLighting#specularEnvironmentMaps} and {@link ImageBasedLighting#sphericalHarmonicCoefficients}
-     * are not defined.
-     */
-    luminanceAtZenith: number;
     /**
      * The third order spherical harmonic coefficients used for the diffuse color of image-based lighting. When <code>undefined</code>, a diffuse irradiance
      * computed from the atmosphere color is used.
@@ -34491,8 +34929,8 @@ export namespace Label {
      * @property [backgroundPadding = new Cartesian2(7, 5)] - A {@link Cartesian2} Specifying the horizontal and vertical background padding in pixels.
      * @property [pixelOffset = Cartesian2.ZERO] - A {@link Cartesian2} specifying the pixel offset in screen space from the origin of this label.
      * @property [eyeOffset = Cartesian3.ZERO] - A {@link Cartesian3} specifying the 3D Cartesian offset applied to this label in eye coordinates.
-     * @property [horizontalOrigin = HorizontalOrigin.CENTER] - A {@link HorizontalOrigin} specifying the horizontal origin of this label.
-     * @property [verticalOrigin = VerticalOrigin.CENTER] - A {@link VerticalOrigin} specifying the vertical origin of this label.
+     * @property [horizontalOrigin = HorizontalOrigin.LEFT] - A {@link HorizontalOrigin} specifying the horizontal origin of this label.
+     * @property [verticalOrigin = VerticalOrigin.BASELINE] - A {@link VerticalOrigin} specifying the vertical origin of this label.
      * @property [heightReference = HeightReference.NONE] - A {@link HeightReference} specifying the height reference of this label.
      * @property [fillColor = Color.WHITE] - A {@link Color} specifying the fill color of the label.
      * @property [outlineColor = Color.BLACK] - A {@link Color} specifying the outline color of the label.
@@ -35489,6 +35927,11 @@ export class MapboxStyleImageryProvider {
  *      <li><code>heights</code>: image of heights sorted from lowest to highest.</li>
  *      <li><code>colors</code>: image of colors at the corresponding heights.</li>
  * </ul>
+ * <li>WaterMask</li>
+ * <ul>
+ *      <li><code>waterColor</code>: diffuse color and alpha for the areas covered by water.</li>
+ *      <li><code>landColor</code>: diffuse color and alpha for the areas covered by land.</li>
+ * </ul>
  * </ul>
  * </ul>
  * </div>
@@ -35516,7 +35959,6 @@ export class MapboxStyleImageryProvider {
  * @param [options.minificationFilter = TextureMinificationFilter.LINEAR] - The {@link TextureMinificationFilter} to apply to this material's textures.
  * @param [options.magnificationFilter = TextureMagnificationFilter.LINEAR] - The {@link TextureMagnificationFilter} to apply to this material's textures.
  * @param options.fabric - The fabric JSON used to generate the material.
- * ructor
  */
 export class Material {
     constructor(options?: {
@@ -35688,6 +36130,10 @@ export class Material {
      * Gets the name of the elevation band material.
      */
     static readonly ElevationBandType: string;
+    /**
+     * Gets the name of the water mask material.
+     */
+    static readonly WaterMaskType: string;
 }
 
 /**
@@ -36014,10 +36460,18 @@ export class MetadataClassProperty {
     readonly semantic: string;
     /**
      * The offset to be added to property values as part of the value transform.
+     *
+     * This is always defined, even when `hasValueTransform` is `false`. If
+     * the class property JSON itself did not define it, then it will be
+     * initialized to the default value.
      */
     readonly offset: number | number[] | number[][];
     /**
      * The scale to be multiplied to property values as part of the value transform.
+     *
+     * This is always defined, even when `hasValueTransform` is `false`. If
+     * the class property JSON itself did not define it, then it will be
+     * initialized to the default value.
      */
     readonly scale: number | number[] | number[][];
     /**
@@ -36241,6 +36695,26 @@ export class MetadataSchema {
 }
 
 /**
+ * An instance of a metadata value.<br>
+ * <br>
+ * This can be one of the following types:
+ * <ul>
+ *   <li><code>number</code> for type <code>SCALAR</code> and numeric component types except for <code>INT64</code> or <code>UINT64</code></li>
+ *   <li><code>bigint</code> for type <code>SCALAR</code> and component type <code>INT64</code> or <code>UINT64</code></li>
+ *   <li><code>string</code> for type <code>STRING</code> or <code>ENUM</code></li>
+ *   <li><code>boolean</code> for type <code>BOOLEAN</code></li>
+ *   <li><code>Cartesian2</code> for type <code>VEC2</code></li>
+ *   <li><code>Cartesian3</code> for type <code>VEC3</code></li>
+ *   <li><code>Cartesian4</code> for type <code>VEC4</code></li>
+ *   <li><code>Matrix2</code> for type <code>MAT2</code></li>
+ *   <li><code>Matrix3</code> for type <code>MAT3</code></li>
+ *   <li><code>Matrix4</code> for type <code>MAT4</code></li>
+ *   <li>Arrays of these types when the metadata value is an array</li>
+ * </ul>
+ */
+export type MetadataValue = number | bigint | string | boolean | Cartesian2 | Cartesian3 | Cartesian4 | Matrix2 | Matrix3 | Matrix4 | number[] | bigint[] | string[] | boolean[] | Cartesian2[] | Cartesian3[] | Cartesian4[] | Matrix2[] | Matrix3[] | Matrix4[];
+
+/**
  * An enum of metadata types. These metadata types are containers containing
  * one or more components of type {@link MetadataComponentType}
  */
@@ -36455,6 +36929,291 @@ export enum CustomShaderTranslucencyMode {
     TRANSLUCENT = 2
 }
 
+export namespace AnchorPointDirect {
+    /**
+     * Initialization options for the AnchorPointDirect constructor
+     * @property position - Anchor point geographic coordinates
+     * @property adjustmentParams - The adjustment values in meters
+     */
+    type ConstructorOptions = {
+        position: Cartesian3;
+        adjustmentParams: Cartesian3;
+    };
+}
+
+/**
+ * Metadata for one stored anchor point using direct storage.
+ *
+ * This reflects the `anchronPointDirect` definition of the
+ * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
+ * @param options - An object describing initialization options
+ */
+export class AnchorPointDirect {
+    constructor(options: AnchorPointDirect.ConstructorOptions);
+    /**
+     * Anchor point geographic coordinates in meters as X/Easting, Y/Northing, Z/HAE
+     */
+    readonly position: Cartesian3;
+    /**
+     * The delta-x delta-y delta-z adjustment values in meters per anchor
+     * point.
+     */
+    readonly adjustmentParams: Cartesian3;
+}
+
+export namespace AnchorPointIndirect {
+    /**
+     * Initialization options for the AnchorPointIndirect constructor
+     * @property position - Anchor point geographic coordinates
+     * @property adjustmentParams - The adjustment values in meters
+     * @property covarianceMatrix - The 3x3 covariance matrix
+     */
+    type ConstructorOptions = {
+        position: Cartesian3;
+        adjustmentParams: Cartesian3;
+        covarianceMatrix: Matrix3;
+    };
+}
+
+/**
+ * Metadata for one stored anchor point.
+ *
+ * This reflects the `anchronPointIndirect` definition of the
+ * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
+ * @param options - An object describing initialization options
+ */
+export class AnchorPointIndirect {
+    constructor(options: AnchorPointIndirect.ConstructorOptions);
+    /**
+     * Anchor point geographic coordinates in meters as X/Easting, Y/Northing, Z/HAE
+     */
+    readonly position: Cartesian3;
+    /**
+     * The delta-x delta-y delta-z adjustment values in meters per anchor
+     * point.
+     */
+    readonly adjustmentParams: Cartesian3;
+    /**
+     * The 3x3 covariance matrix.
+     */
+    readonly covarianceMatrix: Matrix3;
+}
+
+export namespace CorrelationGroup {
+    /**
+     * Initialization options for the CorrelationGroup constructor
+     * @property groupFlags - Array of 3 booleans indicating if
+     * parameters delta-x delta-y delta-z used in the correlation group
+     * @property rotationThetas - Rotations in milliradians
+     * about X, Y, Z axes, respectively
+     * @property params - Array of `Spdcf` (Strictly Positive-Definite
+     * Correlation Function) parameters, for the U, V, W directions, respectively
+     */
+    type ConstructorOptions = {
+        groupFlags: boolean[];
+        rotationThetas: Cartesian3;
+        params: Spdcf[];
+    };
+}
+
+/**
+ * Metadata identifying parameters using same correlation modeling and
+ * associated correlation parameters.
+ *
+ * This reflects the `correlationGroup` definition of the
+ * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
+ * @param options - An object describing initialization options
+ */
+export class CorrelationGroup {
+    constructor(options: CorrelationGroup.ConstructorOptions);
+    /**
+     * Array of 3 booleans indicating if parameters delta-x delta-y delta-z
+     * used in the correlation group
+     */
+    readonly groupFlags: boolean[];
+    /**
+     * Rotations in milliradians about X, Y, Z axes, respectively
+     */
+    readonly rotationThetas: Cartesian3;
+    /**
+     * Array of 3 sets of SPDCF parameters, for the U, V, W directions, respectively
+     */
+    readonly params: Spdcf[];
+}
+
+/**
+ * Creates a Matrix3 that describes a covariance matrix (which is
+ * symmetric) from the array containing the upper triangle, in
+ * column-major order.
+ * @param array - The input array
+ * @returns The Matrix3
+ */
+export function createCovarianceMatrixFromUpperTriangle(array: number[]): Matrix3;
+
+/**
+ * Creates an `AnchorPointDirect` from the given JSON representation
+ * @param anchorPointDirectJson - The input JSON
+ * @returns The direct anchor point
+ */
+export function createAnchorPointDirect(anchorPointDirectJson: any): AnchorPointDirect;
+
+/**
+ * Creates an `AnchorPointIndirect` from the given JSON representation
+ * @param anchorPointIndirectJson - The input JSON
+ * @returns The indirect anchor point
+ */
+export function createAnchorPointIndirect(anchorPointIndirectJson: any): AnchorPointIndirect;
+
+/**
+ * Creates a `CorrelationGroup` from the given JSON representation
+ * @param correlationGroupJson - The input JSON
+ * @returns The correlation group
+ */
+export function createCorrelationGroup(correlationGroupJson: any): CorrelationGroup;
+
+export namespace GltfGpmLocal {
+    /**
+     * Initialization options for the GltfGpmLocal constructor
+     * @property storageType - The storage type.
+     * This must be one of the `StorageType` constants, i.e. `Direct` or `Indirect`.
+     * @property [anchorPointsIndirect] - The indirect anchor points.
+     * This must be present if and only if the storage type is `Indirect`.
+     * @property [intraTileCorrelationGroups] - The intra-tile correlation groups.
+     * This must be present if and only if the storage type is `Indirect`.
+     * @property [anchorPointsDirect] - The direct anchor points.
+     * This must be present if and only if the storage type is `Direct`.
+     * @property [covarianceDirect] - The covariance of anchor point parameters.
+     * This must be present if and only if the storage type is `Direct`.
+     */
+    type ConstructorOptions = {
+        storageType: string;
+        anchorPointsIndirect?: AnchorPointIndirect[] | undefined;
+        intraTileCorrelationGroups?: CorrelationGroup[] | undefined;
+        anchorPointsDirect?: AnchorPointDirect[] | undefined;
+        covarianceDirect?: Matrix3 | undefined;
+    };
+}
+
+/**
+ * The GPM metadata for a Ground-Space Indirect implementation stored
+ * locally (i.e. a tile and/or leaf node).
+ *
+ * This reflects the root extension object of the {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local}
+ * glTF extension. When a model that contains this extension was loaded,
+ * then an object of this type can be obtained by calling
+ * ```
+ * const gltfGpmLocal = model.getExtension("NGA_gpm_local");
+ * ```
+ *
+ * The storage type determines the presence of the optional properties:
+ * <ul>
+ *  <li>
+ *   When the storage type is `StorageType.Indirect`, then the
+ *   `anchorPointsIndirect` and `intraTileCorrelationGroups`
+ *   are present.
+ *  </li>
+ *  <li>
+ *   When the storage type is `StorageType.Direct`, then the
+ *   `anchorPointsDirect` and `covarianceDirect` are present.
+ *  </li>
+ * </ul>
+ * @param options - An object describing initialization options
+ */
+export class GltfGpmLocal {
+    constructor(options: GltfGpmLocal.ConstructorOptions);
+    /**
+     * Specifies if covariance storage is indirect or direct.
+     */
+    readonly storageType: StorageType;
+    /**
+     * Array of stored indirect anchor points
+     */
+    readonly anchorPointsIndirect: AnchorPointIndirect[] | undefined;
+    /**
+     * Array of stored direct anchor points
+     */
+    readonly anchorPointsDirect: AnchorPointDirect[] | undefined;
+    /**
+     * Metadata identifying parameters using same correlation modeling and
+     * associated correlation parameters
+     */
+    readonly intraTileCorrelationGroups: CorrelationGroup[] | undefined;
+    /**
+     * The full covariance of anchor point parameters
+     */
+    readonly covarianceDirect: Matrix3 | undefined;
+}
+
+export namespace Spdcf {
+    /**
+     * Initialization options for the Spdcf constructor
+     * @property A - The factor A, in (0, 1]
+     * @property alpha - The alpha value, in [0, 1)
+     * @property beta - The beta value, in [0, 10]
+     * @property T - the tau value, in (0, +inf)
+     */
+    type ConstructorOptions = {
+        A: number;
+        alpha: number;
+        beta: number;
+        T: number;
+    };
+}
+
+/**
+ * Variables for a Strictly Positive-Definite Correlation Function.
+ *
+ * This reflects the `spdcf` definition of the
+ * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
+ * Instances of this type are stored as the parameters within a
+ * `CorrelationGroup`.
+ *
+ * Parameters (A, alpha, beta, T) describe the correlation decrease
+ * between points as a function of delta time:
+ * ```
+ * spdcf(delta_t) = A_t * (alpha_t + ((1 - alpha_t)(1 + beta_t)) / (beta_t + e^(delta_t/T_t)))
+ * ```
+ * @param options - An object describing initialization options
+ */
+export class Spdcf {
+    constructor(options: Spdcf.ConstructorOptions);
+    /**
+     * In (0, 1]
+     */
+    readonly A: number;
+    /**
+     * In [0, 1)
+     */
+    readonly alpha: number;
+    /**
+     * In [0, 10]
+     */
+    readonly beta: number;
+    /**
+     * In (0, +inf)
+     */
+    readonly T: number;
+}
+
+/**
+ * An enum of storage types for covariance information.
+ *
+ * This reflects the `gltfGpmLocal.storageType` definition of the
+ * {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local} glTF extension.
+ */
+export enum StorageType {
+    /**
+     * Store the full error covariance of the anchor points, to include the cross-covariance terms
+     */
+    Direct = "Direct",
+    /**
+     * A full covariance matrix is stored for each of the anchor points. However, in this case the
+     * cross-covariance terms are not directly stored, but can be computed by a set of spatial
+     * correlation function parameters which are stored in the metadata.
+     */
+    Indirect = "Indirect"
+}
+
 /**
  * The lighting model to use for lighting a {@link Model}.
  */
@@ -36535,6 +37294,9 @@ export enum LightingModel {
  *  </li>
  *  <li>
  *  {@link https://github.com/KhronosGroup/glTF/blob/main/extensions/1.0/Vendor/WEB3D_quantized_attributes/README.md|WEB3D_quantized_attributes}
+ *  </li>
+ *  <li>
+ *  {@link https://nsgreg.nga.mil/csmwg.jsp|NGA_gpm_local (experimental)}
  *  </li>
  * </ul>
  * </p>
@@ -36711,7 +37473,15 @@ export class Model {
      */
     clippingPolygons: ClippingPolygonCollection;
     /**
-     * The light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
+     * If <code>true</code>, the model is exaggerated along the ellipsoid normal when {@link Scene.verticalExaggeration} is set to a value other than <code>1.0</code>.
+     * @example
+     * // Exaggerate terrain by a factor of 2, but prevent model exaggeration
+     * scene.verticalExaggeration = 2.0;
+     * model.enableVerticalExaggeration = false;
+     */
+    enableVerticalExaggeration: boolean;
+    /**
+     * The directional light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
      * <p>
      * Disabling additional light sources by setting
      * <code>model.imageBasedLighting.imageBasedLightingFactor = new Cartesian2(0.0, 0.0)</code>
@@ -36723,6 +37493,14 @@ export class Model {
      * The properties for managing image-based lighting on this model.
      */
     imageBasedLighting: ImageBasedLighting;
+    /**
+     * The properties for managing dynamic environment maps on this model. Affects lighting.
+     * @example
+     * // Change the ground color used for a model's environment map to a forest green
+     * const environmentMapManager = model.environmentMapManager;
+     * environmentMapManager.groundColor = Cesium.Color.fromCssColorString("#203b34");
+     */
+    readonly environmentMapManager: DynamicEnvironmentMapManager;
     /**
      * Whether to cull back-facing geometry. When true, back face culling is
      * determined by the material's doubleSided property; when false, back face
@@ -36813,6 +37591,17 @@ export class Model {
      * transformations on participating nodes.
      */
     applyArticulations(): void;
+    /**
+     * Returns the object that was created for the given extension.
+     *
+     * The given name may be the name of a glTF extension, like `"EXT_example_extension"`.
+     * If the specified extension was present in the root of the underlying glTF asset,
+     * and a loder for the specified extension has processed the extension data, then
+     * this will return the model representation of the extension.
+     * @param extensionName - The name of the extension
+     * @returns The object, or `undefined`
+     */
+    getExtension(extensionName: string): any | undefined;
     /**
      * Marks the model's {@link Model#style} as dirty, which forces all features
      * to re-evaluate the style in the next frame the model is visible.
@@ -36917,6 +37706,7 @@ export class Model {
      * @param [options.show = true] - Whether or not to render the model.
      * @param [options.modelMatrix = Matrix4.IDENTITY] - The 4x4 transformation matrix that transforms the model from model to world coordinates.
      * @param [options.scale = 1.0] - A uniform scale applied to this model.
+     * @param [options.enableVerticalExaggeration = true] - If <code>true</code>, the model is exaggerated along the ellipsoid normal when {@link Scene.verticalExaggeration} is set to a value other than <code>1.0</code>.
      * @param [options.minimumPixelSize = 0.0] - The approximate minimum pixel size of the model regardless of zoom.
      * @param [options.maximumScale] - The maximum scale size of a model. An upper limit for minimumPixelSize.
      * @param [options.id] - A user-defined object to return when the model is picked with {@link Scene#pick}.
@@ -36950,6 +37740,7 @@ export class Model {
      * @param [options.clippingPolygons] - The {@link ClippingPolygonCollection} used to selectively disable rendering the model.
      * @param [options.lightColor] - The light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
      * @param [options.imageBasedLighting] - The properties for managing image-based lighting on this model.
+     * @param [options.environmentMapOptions] - The properties for managing dynamic environment maps on this model.
      * @param [options.backFaceCulling = true] - Whether to cull back-facing geometry. When true, back face culling is determined by the material's doubleSided property; when false, back face culling is disabled. Back faces are not culled if the model's color is translucent.
      * @param [options.credit] - A credit for the data source, which is displayed on the canvas.
      * @param [options.showCreditsOnScreen = false] - Whether to display the credits of this model on screen.
@@ -36969,6 +37760,7 @@ export class Model {
         show?: boolean;
         modelMatrix?: Matrix4;
         scale?: number;
+        enableVerticalExaggeration?: boolean;
         minimumPixelSize?: number;
         maximumScale?: number;
         id?: any;
@@ -37002,6 +37794,7 @@ export class Model {
         clippingPolygons?: ClippingPolygonCollection;
         lightColor?: Cartesian3;
         imageBasedLighting?: ImageBasedLighting;
+        environmentMapOptions?: DynamicEnvironmentMapManager.ConstructorOptions;
         backFaceCulling?: boolean;
         credit?: Credit | string;
         showCreditsOnScreen?: boolean;
@@ -38222,6 +39015,63 @@ export class PerInstanceColorAppearance {
 }
 
 /**
+ * The optional ID of the metadata schema
+ */
+export var schemaId: string | undefined;
+
+/**
+ * The name of the metadata class
+ */
+export var className: string;
+
+/**
+ * The name of the metadata property
+ */
+export var propertyName: string;
+
+/**
+ * The the `MetadataClassProperty` that is described by this
+ * structure, as obtained from the `MetadataSchema`
+ */
+export var classProperty: MetadataClassProperty;
+
+/**
+ * The `PropertyTextureProperty` or `PropertyAttributeProperty` that
+ * is described by this structure, as obtained from the property texture
+ * or property attribute of the `StructuralMetadata` that matches the
+ * class name and property name.
+ */
+export var metadataProperty: any;
+
+/**
+ * Compute the rectangle that describes the part of the drawing buffer
+ * that is relevant for picking.
+ * @param drawingBufferHeight - The height of the drawing buffer
+ * @param position - The position inside the drawing buffer
+ * @param width - The width of the rectangle, assumed to
+ * be an odd integer number, default : 3.0
+ * @param height - The height of the rectangle. If unspecified,
+ * height will default to the value of <code>width</code>
+ * @param result - The result rectangle
+ * @returns The result rectangle
+ */
+export function computePickingDrawingBufferRectangle(drawingBufferHeight: number, position: Cartesian2, width: number | undefined, height: number | undefined, result: BoundingRectangle): BoundingRectangle;
+
+/**
+ * Information about metadata that is supposed to be picked
+ * @property schemaId - The optional ID of the metadata schema
+ * @property className - The name of the metadata class
+ * @property propertyName - The name of the metadata property
+ * @property classProperty - The metadata class property
+ */
+export type PickedMetadataInfo = {
+    schemaId: string | undefined;
+    className: string;
+    propertyName: string;
+    classProperty: MetadataClassProperty;
+};
+
+/**
  * Options for performing point attenuation based on geometric error when rendering
  * point clouds using 3D Tiles.
  * @param [options] - Object with the following properties:
@@ -39186,31 +40036,19 @@ export class PostProcessStageCollection {
      * surface receives light and regardless of the light's position.
      * </p>
      * <p>
-     * The uniforms have the following properties: <code>intensity</code>, <code>bias</code>, <code>lengthCap</code>,
-     * <code>stepSize</code>, <code>frustumLength</code>, <code>ambientOcclusionOnly</code>,
-     * <code>delta</code>, <code>sigma</code>, and <code>blurStepSize</code>.
-     * </p>
+     * The uniforms have the following properties:
      * <ul>
      * <li><code>intensity</code> is a scalar value used to lighten or darken the shadows exponentially. Higher values make the shadows darker. The default value is <code>3.0</code>.</li>
-     *
      * <li><code>bias</code> is a scalar value representing an angle in radians. If the dot product between the normal of the sample and the vector to the camera is less than this value,
      * sampling stops in the current direction. This is used to remove shadows from near planar edges. The default value is <code>0.1</code>.</li>
-     *
      * <li><code>lengthCap</code> is a scalar value representing a length in meters. If the distance from the current sample to first sample is greater than this value,
      * sampling stops in the current direction. The default value is <code>0.26</code>.</li>
-     *
-     * <li><code>stepSize</code> is a scalar value indicating the distance to the next texel sample in the current direction. The default value is <code>1.95</code>.</li>
-     *
-     * <li><code>frustumLength</code> is a scalar value in meters. If the current fragment has a distance from the camera greater than this value, ambient occlusion is not computed for the fragment.
-     * The default value is <code>1000.0</code>.</li>
-     *
+     * <li><code>directionCount</code> is the number of directions along which the ray marching will search for occluders. The default value is <code>8</code>.</li>
+     * <li><code>stepCount</code> is the number of steps the ray marching will take along each direction. The default value is <code>32</code>.</li>
+     * <li><code>randomTexture</code> is a texture where the red channel is a random value in [0.0, 1.0]. The default value is <code>undefined</code>. This texture needs to be set.</li>
      * <li><code>ambientOcclusionOnly</code> is a boolean value. When <code>true</code>, only the shadows generated are written to the output. When <code>false</code>, the input texture is modulated
      * with the ambient occlusion. This is a useful debug option for seeing the effects of changing the uniform values. The default value is <code>false</code>.</li>
      * </ul>
-     * <p>
-     * <code>delta</code>, <code>sigma</code>, and <code>blurStepSize</code> are the same properties as {@link PostProcessStageLibrary#createBlurStage}.
-     * The blur is applied to the shadows generated from the image to make them smoother.
-     * </p>
      * <p>
      * When enabled, this stage will execute before all others.
      * </p>
@@ -39247,6 +40085,19 @@ export class PostProcessStageCollection {
      * The number of post-process stages in this collection.
      */
     readonly length: number;
+    /**
+     * Specifies the tonemapping algorithm used when rendering with high dynamic range.
+     * {@link https://sandcastle.cesium.com/?src=High%20Dynamic%20Range.html|Sandcastle Demo}
+     * @example
+     * viewer.scene.postProcessStages.tonemapper = Cesium.Tonemapper.ACES;
+     */
+    tonemapper: Tonemapper;
+    /**
+     * Control the exposure when HDR is on. Less than 1.0 makes the tonemapping darker while greater than 1.0 makes it brighter.
+     * @example
+     * viewer.scene.postProcessStages.exposure = 1.0;
+     */
+    exposure: number;
     /**
      * Adds the post-process stage to the collection.
      * @param stage - The post-process stage to add to the collection.
@@ -40044,7 +40895,7 @@ export class PrimitiveCollection {
  * @param [options.requestRenderMode = false] - If true, rendering a frame will only occur when needed as determined by changes within the scene. Enabling improves performance of the application, but requires using {@link Scene#requestRender} to render a new frame explicitly in this mode. This will be necessary in many cases after making changes to the scene in other parts of the API. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
  * @param [options.maximumRenderTimeChange = 0.0] - If requestRenderMode is true, this value defines the maximum change in simulation time allowed before a render is requested. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
  * @param [options.depthPlaneEllipsoidOffset = 0.0] - Adjust the DepthPlane to address rendering artefacts below ellipsoid zero elevation.
- * @param [options.msaaSamples = 1] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets.
+ * @param [options.msaaSamples = 4] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets. Set to 1 to disable MSAA.
  */
 export class Scene {
     constructor(options: {
@@ -40555,6 +41406,27 @@ export class Scene {
      */
     pickVoxel(windowPosition: Cartesian2, width?: number, height?: number): VoxelCell | undefined;
     /**
+     * Pick a metadata value at the given window position.
+     * @param windowPosition - Window coordinates to perform picking on.
+     * @param schemaId - The ID of the metadata schema to pick values
+     * from. If this is `undefined`, then it will pick the values from the object
+     * that match the given class- and property name, regardless of the schema ID.
+     * @param className - The name of the metadata class to pick
+     * values from
+     * @param propertyName - The name of the metadata property to pick
+     * values from
+     * @returns The metadata value, or `undefined` when
+     * no matching metadata was found at the given position
+     */
+    pickMetadata(windowPosition: Cartesian2, schemaId: string | undefined, className: string, propertyName: string): MetadataValue | undefined;
+    /**
+     * Pick the schema of the metadata of the object at the given position
+     * @param windowPosition - Window coordinates to perform picking on.
+     * @returns The metadata schema, or `undefined` if there is no object with
+     * associated metadata at the given position.
+     */
+    pickMetadataSchema(windowPosition: Cartesian2): MetadataSchema;
+    /**
      * Returns the cartesian position reconstructed from the depth buffer and window position.
      * <p>
      * The position reconstructed from the depth buffer in 2D may be slightly different from those
@@ -40738,6 +41610,18 @@ export class Scene {
 }
 
 /**
+ * Determine how translucent surfaces will be handled.
+ *
+ * When OIT is enabled, then this will delegate to OIT.executeCommands.
+ * Otherwise, it will just be executeTranslucentCommandsBackToFront
+ * for render passes, or executeTranslucentCommandsFrontToBack for
+ * other passes.
+ * @param scene - The scene.
+ * @returns A function to execute translucent commands.
+ */
+export function obtainTranslucentCommandExecutionFunction(scene: Scene): (...params: any[]) => any;
+
+/**
  * Indicates if the scene is viewed in 3D, 2D, or 2.5D Columbus view.
  */
 export enum SceneMode {
@@ -40781,24 +41665,6 @@ export namespace SceneTransforms {
      */
     function worldToWindowCoordinates(scene: Scene, position: Cartesian3, result?: Cartesian2): Cartesian2 | undefined;
     /**
-     * Transforms a position in WGS84 coordinates to window coordinates.  This is commonly used to place an
-     * HTML element at the same screen position as an object in the scene.
-     * @example
-     * // Output the window position of longitude/latitude (0, 0) every time the mouse moves.
-     * const scene = widget.scene;
-     * const ellipsoid = scene.ellipsoid;
-     * const position = Cesium.Cartesian3.fromDegrees(0.0, 0.0);
-     * const handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-     * handler.setInputAction(function(movement) {
-     *     console.log(Cesium.SceneTransforms.wgs84ToWindowCoordinates(scene, position));
-     * }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-     * @param scene - The scene.
-     * @param position - The position in WGS84 (world) coordinates.
-     * @param [result] - An optional object to return the input position transformed to window coordinates.
-     * @returns The modified result parameter or a new Cartesian2 instance if one was not provided.  This may be <code>undefined</code> if the input position is near the center of the ellipsoid.
-     */
-    function wgs84ToWindowCoordinates(scene: Scene, position: Cartesian3, result?: Cartesian2): Cartesian2 | undefined;
-    /**
      * Transforms a position in world coordinates to drawing buffer coordinates.  This may produce different
      * results from SceneTransforms.worldToWindowCoordinates when the browser zoom is not 100%, or on high-DPI displays.
      * @example
@@ -40814,22 +41680,6 @@ export namespace SceneTransforms {
      * @returns The modified result parameter or a new Cartesian2 instance if one was not provided.  This may be <code>undefined</code> if the input position is near the center of the ellipsoid.
      */
     function worldToDrawingBufferCoordinates(scene: Scene, position: Cartesian3, result?: Cartesian2): Cartesian2 | undefined;
-    /**
-     * Transforms a position in world coordinates to drawing buffer coordinates.  This may produce different
-     * results from SceneTransforms.wgs84ToWindowCoordinates when the browser zoom is not 100%, or on high-DPI displays.
-     * @example
-     * // Output the window position of longitude/latitude (0, 0) every time the mouse moves.
-     * const position = Cesium.Cartesian3.fromDegrees(0.0, 0.0);
-     * const handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
-     * handler.setInputAction(function(movement) {
-     *     console.log(Cesium.SceneTransforms.wgs84ToWindowCoordinates(scene, position));
-     * }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
-     * @param scene - The scene.
-     * @param position - The position in world (WGS84 or alternative ellipsoid) coordinates.
-     * @param [result] - An optional object to return the input position transformed to window coordinates.
-     * @returns The modified result parameter or a new Cartesian2 instance if one was not provided.  This may be <code>undefined</code> if the input position is near the center of the ellipsoid.
-     */
-    function wgs84ToDrawingBufferCoordinates(scene: Scene, position: Cartesian3, result?: Cartesian2): Cartesian2 | undefined;
 }
 
 /**
@@ -40910,6 +41760,10 @@ export class ScreenSpaceCameraController {
      */
     maximumZoomDistance: number;
     /**
+     * A multiplier for the speed at which the camera will zoom.
+     */
+    zoomFactor: number;
+    /**
      * The input that allows the user to pan around the map. This only applies in 2D and Columbus view modes.
      * <p>
      * The type can be a {@link CameraEventType}, <code>undefined</code>, an object with <code>eventType</code>
@@ -40975,6 +41829,13 @@ export class ScreenSpaceCameraController {
      * When disabled, the values of <code>maximumZoomDistance</code> and <code>minimumZoomDistance</code> are ignored.
      */
     enableCollisionDetection: boolean;
+    /**
+     * The angle, relative to the ellipsoid normal, restricting the maximum amount that the user can tilt the camera. If <code>undefined</code>, the angle of the camera tilt is unrestricted.
+     * @example
+     * // Prevent the camera from tilting below the ellipsoid surface
+     * viewer.scene.screenSpaceCameraController.maximumTiltAngle = Math.PI / 2.0;
+     */
+    maximumTiltAngle: number | undefined;
     /**
      * Returns true if this object was destroyed; otherwise, false.
      * <br /><br />
@@ -42131,6 +42992,32 @@ export class TimeDynamicPointCloud {
     destroy(): void;
 }
 
+/**
+ * A tonemapping algorithm when rendering with high dynamic range.
+ */
+export enum Tonemapper {
+    /**
+     * Use the Reinhard tonemapping.
+     */
+    REINHARD = "REINHARD",
+    /**
+     * Use the modified Reinhard tonemapping.
+     */
+    MODIFIED_REINHARD = "MODIFIED_REINHARD",
+    /**
+     * Use the Filmic tonemapping.
+     */
+    FILMIC = "FILMIC",
+    /**
+     * Use the ACES tonemapping.
+     */
+    ACES = "ACES",
+    /**
+     * Use the PBR Neutral tonemapping {@link https://github.com/KhronosGroup/ToneMapping/tree/main/PBR_Neutral|from Khronos}.
+     */
+    PBR_NEUTRAL = "PBR_NEUTRAL"
+}
+
 export namespace UrlTemplateImageryProvider {
     /**
      * Initialization options for the UrlTemplateImageryProvider constructor
@@ -42254,13 +43141,13 @@ export namespace UrlTemplateImageryProvider {
  * });
  * // Access a Web Map Service (WMS) server.
  * const wms = new Cesium.UrlTemplateImageryProvider({
- *    url : 'https://programs.communications.gov.au/geoserver/ows?tiled=true&' +
- *          'transparent=true&format=image%2Fpng&exceptions=application%2Fvnd.ogc.se_xml&' +
- *          'styles=&service=WMS&version=1.1.1&request=GetMap&' +
- *          'layers=public%3AMyBroadband_Availability&srs=EPSG%3A3857&' +
+ *    url : 'https://services.ga.gov.au/gis/services/NM_Hydrology_and_Marine_Points/MapServer/WMSServer?' +
+ *          'tiled=true&transparent=true&format=image%2Fpng&exceptions=application%2Fvnd.ogc.se_xml&' +
+ *          'styles=&service=WMS&version=1.3.0&request=GetMap&' +
+ *          'layers=Bores&crs=EPSG%3A3857&' +
  *          'bbox={westProjected}%2C{southProjected}%2C{eastProjected}%2C{northProjected}&' +
  *          'width=256&height=256',
- *    rectangle : Cesium.Rectangle.fromDegrees(96.799393, -43.598214999057824, 153.63925700000001, -9.2159219997013)
+ *    rectangle : Cesium.Rectangle.fromDegrees(95.0, -55.0, 170.0, -1.0)  // From GetCapabilities EX_GeographicBoundingBox
  * });
  * // Using custom tags in your template url.
  * const custom = new Cesium.UrlTemplateImageryProvider({
@@ -42656,11 +43543,6 @@ export class VoxelPrimitive {
      * Gets or sets whether or not to test against depth when rendering.
      */
     depthTest: boolean;
-    /**
-     * Gets or sets whether or not to jitter the view ray during the raymarch.
-     * This reduces stair-step artifacts but introduces noise.
-     */
-    jitter: boolean;
     /**
      * Gets or sets the nearest sampling.
      */
@@ -43338,12 +44220,22 @@ export function createElevationBandMaterial(options: {
 }): Material;
 
 /**
- * Creates a {@link Cesium3DTileset} instance for the Google Photorealistic 3D Tiles tileset.
+ * Creates a {@link Cesium3DTileset} instance for the Google Photorealistic 3D
+ * Tiles tileset.
+ *
+ * Google Photorealistic 3D Tiles can only be used with the Google geocoder.  To
+ * confirm that you are aware of this restriction pass
+ * `usingOnlyWithGoogleGeocoder: true` to the apiOptions.  Otherwise a one time
+ * warning will be displayed when this function is called.
  * @example
- * const viewer = new Cesium.Viewer("cesiumContainer");
+ * const viewer = new Cesium.Viewer("cesiumContainer", {
+ *   geocoder: Cesium.IonGeocodeProviderType.GOOGLE
+ * });
  *
  * try {
- *   const tileset = await Cesium.createGooglePhotorealistic3DTileset();
+ *   const tileset = await Cesium.createGooglePhotorealistic3DTileset({
+ *      onlyUsingWithGoogleGeocoder: true,
+ *   });
  *   viewer.scene.primitives.add(tileset));
  * } catch (error) {
  *   console.log(`Error creating tileset: ${error}`);
@@ -43352,18 +44244,26 @@ export function createElevationBandMaterial(options: {
  * // Use your own Google Maps API key
  * Cesium.GoogleMaps.defaultApiKey = "your-api-key";
  *
- * const viewer = new Cesium.Viewer("cesiumContainer");
+ * const viewer = new Cesium.Viewer("cesiumContainer". {
+ *   geocoder: Cesium.IonGeocodeProviderType.GOOGLE
+ * });
  *
  * try {
- *   const tileset = await Cesium.createGooglePhotorealistic3DTileset();
+ *   const tileset = await Cesium.createGooglePhotorealistic3DTileset({
+ *      onlyUsingWithGoogleGeocoder: true,
+ *   });
  *   viewer.scene.primitives.add(tileset));
  * } catch (error) {
  *   console.log(`Error creating tileset: ${error}`);
  * }
- * @param [key = GoogleMaps.defaultApiKey] - Your API key to access Google Photorealistic 3D Tiles. See {@link https://developers.google.com/maps/documentation/javascript/get-api-key} for instructions on how to create your own key.
- * @param [options] - An object describing initialization options.
+ * @param [apiOptions.key = GoogleMaps.defaultApiKey] - Your API key to access Google Photorealistic 3D Tiles. See {@link https://developers.google.com/maps/documentation/javascript/get-api-key} for instructions on how to create your own key.
+ * @param [apiOptions.onlyUsingWithGoogleGeocoder] - Confirmation that this tileset will only be used with the Google geocoder.
+ * @param [tilesetOptions] - An object describing initialization options.
  */
-export function createGooglePhotorealistic3DTileset(key?: string, options?: Cesium3DTileset.ConstructorOptions): Promise<Cesium3DTileset>;
+export function createGooglePhotorealistic3DTileset(apiOptions?: {
+    key?: string;
+    onlyUsingWithGoogleGeocoder?: true;
+}, tilesetOptions?: Cesium3DTileset.ConstructorOptions): Promise<Cesium3DTileset>;
 
 /**
  * Creates a {@link Cesium3DTileset} instance for the
@@ -43495,6 +44395,7 @@ export function createWorldImageryAsync(options?: {
  * @param container - The DOM element or ID that will contain the widget.
  * @param [options] - Object with the following properties:
  * @param [options.clock = new Clock()] - The clock to use to control current time.
+ * @param [options.shouldAnimate = false] - <code>true</code> if the clock should attempt to advance simulation time by default, <code>false</code> otherwise.
  * @param [options.ellipsoid = Ellipsoid.default] - The default ellipsoid.
  * @param [options.baseLayer = ImageryLayer.fromWorldImagery()] - The bottommost imagery layer applied to the globe. If set to <code>false</code>, no imagery provider will be added.
  * @param [options.terrainProvider = new EllipsoidTerrainProvider(options.ellipsoid)] - The terrain provider.
@@ -43510,21 +44411,25 @@ export function createWorldImageryAsync(options?: {
  * @param [options.useBrowserRecommendedResolution = true] - If true, render at the browser's recommended resolution and ignore <code>window.devicePixelRatio</code>.
  * @param [options.targetFrameRate] - The target frame rate when using the default render loop.
  * @param [options.showRenderLoopErrors = true] - If true, this widget will automatically display an HTML panel to the user containing the error, if a render loop error occurs.
+ * @param [options.automaticallyTrackDataSourceClocks = true] - If true, this widget will automatically track the clock settings of newly added DataSources, updating if the DataSource's clock changes.  Set this to false if you want to configure the clock independently.
  * @param [options.contextOptions] - Context and WebGL creation properties passed to {@link Scene}.
  * @param [options.creditContainer] - The DOM element or ID that will contain the {@link CreditDisplay}.  If not specified, the credits are added
  *        to the bottom of the widget itself.
  * @param [options.creditViewport] - The DOM element or ID that will contain the credit pop up created by the {@link CreditDisplay}.  If not specified, it will appear over the widget itself.
+ * @param [options.dataSources = new DataSourceCollection()] - The collection of data sources visualized by the widget.  If this parameter is provided,
+ *                               the instance is assumed to be owned by the caller and will not be destroyed when the widget is destroyed.
  * @param [options.shadows = false] - Determines if shadows are cast by light sources.
  * @param [options.terrainShadows = ShadowMode.RECEIVE_ONLY] - Determines if the terrain casts or receives shadows from light sources.
  * @param [options.mapMode2D = MapMode2D.INFINITE_SCROLL] - Determines if the 2D map is rotatable or can be scrolled infinitely in the horizontal direction.
- * @param [options.blurActiveElementOnCanvasFocus = true] - If true, the active element will blur when the viewer's canvas is clicked. Setting this to false is useful for cases when the canvas is clicked only for retrieving position or an entity data without actually meaning to set the canvas to be the active element.
+ * @param [options.blurActiveElementOnCanvasFocus = true] - If true, the active element will blur when the widget's canvas is clicked. Setting this to false is useful for cases when the canvas is clicked only for retrieving position or an entity data without actually meaning to set the canvas to be the active element.
  * @param [options.requestRenderMode = false] - If true, rendering a frame will only occur when needed as determined by changes within the scene. Enabling improves performance of the application, but requires using {@link Scene#requestRender} to render a new frame explicitly in this mode. This will be necessary in many cases after making changes to the scene in other parts of the API. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
  * @param [options.maximumRenderTimeChange = 0.0] - If requestRenderMode is true, this value defines the maximum change in simulation time allowed before a render is requested. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
- * @param [options.msaaSamples = 1] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets.
+ * @param [options.msaaSamples = 4] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets. Set to 1 to disable MSAA.
  */
 export class CesiumWidget {
     constructor(container: Element | string, options?: {
         clock?: Clock;
+        shouldAnimate?: boolean;
         ellipsoid?: Ellipsoid;
         baseLayer?: ImageryLayer | false;
         terrainProvider?: TerrainProvider;
@@ -43540,9 +44445,11 @@ export class CesiumWidget {
         useBrowserRecommendedResolution?: boolean;
         targetFrameRate?: number;
         showRenderLoopErrors?: boolean;
+        automaticallyTrackDataSourceClocks?: boolean;
         contextOptions?: ContextOptions;
         creditContainer?: Element | string;
         creditViewport?: Element | string;
+        dataSources?: DataSourceCollection;
         shadows?: boolean;
         terrainShadows?: ShadowMode;
         mapMode2D?: MapMode2D;
@@ -43583,6 +44490,19 @@ export class CesiumWidget {
      * Manages the list of credits to display on screen and in the lightbox.
      */
     creditDisplay: CreditDisplay;
+    /**
+     * Gets the display used for {@link DataSource} visualization.
+     */
+    readonly dataSourceDisplay: DataSourceDisplay;
+    /**
+     * Gets the collection of entities not tied to a particular data source.
+     * This is a shortcut to [dataSourceDisplay.defaultDataSource.entities]{@link CesiumWidget#dataSourceDisplay}.
+     */
+    readonly entities: EntityCollection;
+    /**
+     * Gets the set of {@link DataSource} instances to be visualized.
+     */
+    readonly dataSources: DataSourceCollection;
     /**
      * Gets the camera.
      */
@@ -43637,6 +44557,25 @@ export class CesiumWidget {
      */
     useBrowserRecommendedResolution: boolean;
     /**
+     * Gets or sets whether or not data sources can temporarily pause
+     * animation in order to avoid showing an incomplete picture to the user.
+     * For example, if asynchronous primitives are being processed in the
+     * background, the clock will not advance until the geometry is ready.
+     */
+    allowDataSourcesToSuspendAnimation: boolean;
+    /**
+     * Gets or sets the Entity instance currently being tracked by the camera.
+     */
+    trackedEntity: Entity | undefined;
+    /**
+     * Gets the event that is raised when the tracked entity changes.
+     */
+    readonly trackedEntityChanged: Event;
+    /**
+     * Gets or sets the data source to track with the widget's clock.
+     */
+    clockTrackedDataSource: DataSource;
+    /**
      * Show an error panel to the user containing a title and a longer error message,
      * which can be dismissed using an OK button.  This panel is displayed automatically
      * when a render loop error occurs, if showRenderLoopErrors was not false when the
@@ -43666,6 +44605,51 @@ export class CesiumWidget {
      * unless <code>useDefaultRenderLoop</code> is set to false;
      */
     render(): void;
+    /**
+     * Asynchronously sets the camera to view the provided entity, entities, or data source.
+     * If the data source is still in the process of loading or the visualization is otherwise still loading,
+     * this method waits for the data to be ready before performing the zoom.
+     *
+     * <p>The offset is heading/pitch/range in the local east-north-up reference frame centered at the center of the bounding sphere.
+     * The heading and the pitch angles are defined in the local east-north-up reference frame.
+     * The heading is the angle from y axis and increasing towards the x axis. Pitch is the rotation from the xy-plane. Positive pitch
+     * angles are above the plane. Negative pitch angles are below the plane. The range is the distance from the center. If the range is
+     * zero, a range will be computed such that the whole bounding sphere is visible.</p>
+     *
+     * <p>In 2D, there must be a top down view. The camera will be placed above the target looking down. The height above the
+     * target will be the range. The heading will be determined from the offset. If the heading cannot be
+     * determined from the offset, the heading will be north.</p>
+     * @param target - The entity, array of entities, entity collection, data source, Cesium3DTileset, point cloud, or imagery layer to view. You can also pass a promise that resolves to one of the previously mentioned types.
+     * @param [offset] - The offset from the center of the entity in the local east-north-up reference frame.
+     * @returns A Promise that resolves to true if the zoom was successful or false if the target is not currently visualized in the scene or the zoom was cancelled.
+     */
+    zoomTo(target: Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud | Promise<Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud | VoxelPrimitive>, offset?: HeadingPitchRange): Promise<boolean>;
+    /**
+     * Flies the camera to the provided entity, entities, or data source.
+     * If the data source is still in the process of loading or the visualization is otherwise still loading,
+     * this method waits for the data to be ready before performing the flight.
+     *
+     * <p>The offset is heading/pitch/range in the local east-north-up reference frame centered at the center of the bounding sphere.
+     * The heading and the pitch angles are defined in the local east-north-up reference frame.
+     * The heading is the angle from y axis and increasing towards the x axis. Pitch is the rotation from the xy-plane. Positive pitch
+     * angles are above the plane. Negative pitch angles are below the plane. The range is the distance from the center. If the range is
+     * zero, a range will be computed such that the whole bounding sphere is visible.</p>
+     *
+     * <p>In 2D, there must be a top down view. The camera will be placed above the target looking down. The height above the
+     * target will be the range. The heading will be determined from the offset. If the heading cannot be
+     * determined from the offset, the heading will be north.</p>
+     * @param target - The entity, array of entities, entity collection, data source, Cesium3DTileset, point cloud, or imagery layer to view. You can also pass a promise that resolves to one of the previously mentioned types.
+     * @param [options] - Object with the following properties:
+     * @param [options.duration = 3.0] - The duration of the flight in seconds.
+     * @param [options.maximumHeight] - The maximum height at the peak of the flight.
+     * @param [options.offset] - The offset from the target in the local east-north-up reference frame centered at the target.
+     * @returns A Promise that resolves to true if the flight was successful or false if the target is not currently visualized in the scene or the flight was cancelled. //TODO: Cleanup entity mentions
+     */
+    flyTo(target: Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud | Promise<Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud | VoxelPrimitive>, options?: {
+        duration?: number;
+        maximumHeight?: number;
+        offset?: HeadingPitchRange;
+    }): Promise<boolean>;
 }
 
 

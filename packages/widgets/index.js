@@ -1,4 +1,4 @@
-globalThis.CESIUM_VERSION = "1.120";
+globalThis.CESIUM_VERSION = "1.124";
 export { default as ClockViewModel } from './Source/ClockViewModel.js';
 export { default as Command } from './Source/Command.js';
 export { default as InspectorShared } from './Source/InspectorShared.js';
@@ -8,6 +8,8 @@ export { default as createCommand } from './Source/createCommand.js';
 export { default as subscribeAndEvaluate } from './Source/subscribeAndEvaluate.js';
 export { default as Animation } from './Source/Animation/Animation.js';
 export { default as AnimationViewModel } from './Source/Animation/AnimationViewModel.js';
+export { default as CesiumInspector } from './Source/CesiumInspector/CesiumInspector.js';
+export { default as CesiumInspectorViewModel } from './Source/CesiumInspector/CesiumInspectorViewModel.js';
 export { default as BaseLayerPicker } from './Source/BaseLayerPicker/BaseLayerPicker.js';
 export { default as BaseLayerPickerViewModel } from './Source/BaseLayerPicker/BaseLayerPickerViewModel.js';
 export { default as ProviderViewModel } from './Source/BaseLayerPicker/ProviderViewModel.js';
@@ -15,8 +17,6 @@ export { default as createDefaultImageryProviderViewModels } from './Source/Base
 export { default as createDefaultTerrainProviderViewModels } from './Source/BaseLayerPicker/createDefaultTerrainProviderViewModels.js';
 export { default as Cesium3DTilesInspector } from './Source/Cesium3DTilesInspector/Cesium3DTilesInspector.js';
 export { default as Cesium3DTilesInspectorViewModel } from './Source/Cesium3DTilesInspector/Cesium3DTilesInspectorViewModel.js';
-export { default as CesiumInspector } from './Source/CesiumInspector/CesiumInspector.js';
-export { default as CesiumInspectorViewModel } from './Source/CesiumInspector/CesiumInspectorViewModel.js';
 export { default as FullscreenButton } from './Source/FullscreenButton/FullscreenButton.js';
 export { default as FullscreenButtonViewModel } from './Source/FullscreenButton/FullscreenButtonViewModel.js';
 export { default as Geocoder } from './Source/Geocoder/Geocoder.js';

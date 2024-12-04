@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.120
+ * Version 1.124
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,71 +25,71 @@
 
 import {
   RectangleGeometryLibrary_default
-} from "./chunk-OAPA2RTG.js";
+} from "./chunk-GJZQSAES.js";
 import {
   GeometryInstance_default
-} from "./chunk-UOEUCKKU.js";
+} from "./chunk-KKVKSTWC.js";
 import {
   GeometryPipeline_default
-} from "./chunk-PNFHVBSF.js";
-import "./chunk-J7MQUQJY.js";
-import "./chunk-SAPFXU5X.js";
+} from "./chunk-NVFEDMX4.js";
+import "./chunk-RR4M3ZGF.js";
+import "./chunk-RIQGQMS4.js";
 import {
   GeometryOffsetAttribute_default
-} from "./chunk-GNHZH7HP.js";
+} from "./chunk-KRCUHV7P.js";
 import {
   VertexFormat_default
-} from "./chunk-LSSWVB2X.js";
+} from "./chunk-EXDSJZ7J.js";
 import {
   PolygonPipeline_default
-} from "./chunk-76BYYG7N.js";
-import "./chunk-BY3E4ONI.js";
-import "./chunk-TF776XCO.js";
-import "./chunk-A5CODJ4M.js";
+} from "./chunk-W2DVQETH.js";
+import "./chunk-Q4MTXEB7.js";
+import "./chunk-CQDSGG3R.js";
+import "./chunk-3VHIUS7I.js";
 import {
   IndexDatatype_default
-} from "./chunk-EB7PNZTK.js";
+} from "./chunk-Z7OYBX6P.js";
 import {
   GeometryAttributes_default
-} from "./chunk-JYQNWIQQ.js";
+} from "./chunk-22NU5WU5.js";
 import {
   GeometryAttribute_default,
   Geometry_default,
   PrimitiveType_default
-} from "./chunk-IUROUBPA.js";
+} from "./chunk-PMNQULFU.js";
 import {
   BoundingSphere_default
-} from "./chunk-ELI4BUOT.js";
+} from "./chunk-2OD54CUD.js";
 import {
   Matrix2_default,
   Quaternion_default,
   Rectangle_default
-} from "./chunk-OXALEQPI.js";
+} from "./chunk-BFNZUP2C.js";
 import {
   ComponentDatatype_default
-} from "./chunk-FQPSOOPH.js";
+} from "./chunk-H4Y7ADFL.js";
 import {
   Cartesian2_default,
   Cartesian3_default,
   Cartographic_default,
   Ellipsoid_default,
   Matrix3_default
-} from "./chunk-T6LPN7RI.js";
+} from "./chunk-XQP37R5E.js";
 import {
   Math_default
-} from "./chunk-R4OIEIPE.js";
-import "./chunk-RHBWXX7C.js";
-import "./chunk-ZIKGV7EL.js";
+} from "./chunk-RGZWZ4PP.js";
+import "./chunk-ZIWULRRD.js";
+import "./chunk-2TSF7N76.js";
 import {
   defaultValue_default
-} from "./chunk-BAVI3ZS2.js";
+} from "./chunk-BLTSMJIP.js";
 import {
   Check_default,
   DeveloperError_default
-} from "./chunk-TGY6H6N6.js";
+} from "./chunk-FANORJU6.js";
 import {
   defined_default
-} from "./chunk-N4QEHO3U.js";
+} from "./chunk-S4SCKDK4.js";
 
 // packages/engine/Source/Core/RectangleGeometry.js
 var positionScratch = new Cartesian3_default();
@@ -921,7 +921,7 @@ function RectangleGeometry(options) {
   options = defaultValue_default(options, defaultValue_default.EMPTY_OBJECT);
   const rectangle = options.rectangle;
   Check_default.typeOf.object("rectangle", rectangle);
-  Rectangle_default.validate(rectangle);
+  Rectangle_default._validate(rectangle);
   if (rectangle.north < rectangle.south) {
     throw new DeveloperError_default(
       "options.rectangle.north must be greater than or equal to options.rectangle.south"
@@ -1030,7 +1030,7 @@ RectangleGeometry.computeRectangle = function(options, result) {
   options = defaultValue_default(options, defaultValue_default.EMPTY_OBJECT);
   const rectangle = options.rectangle;
   Check_default.typeOf.object("rectangle", rectangle);
-  Rectangle_default.validate(rectangle);
+  Rectangle_default._validate(rectangle);
   if (rectangle.north < rectangle.south) {
     throw new DeveloperError_default(
       "options.rectangle.north must be greater than or equal to options.rectangle.south"
@@ -1247,9 +1247,7 @@ Object.defineProperties(RectangleGeometry.prototype, {
   textureCoordinateRotationPoints: {
     get: function() {
       if (!defined_default(this._textureCoordinateRotationPoints)) {
-        this._textureCoordinateRotationPoints = textureCoordinateRotationPoints(
-          this
-        );
+        this._textureCoordinateRotationPoints = textureCoordinateRotationPoints(this);
       }
       return this._textureCoordinateRotationPoints;
     }

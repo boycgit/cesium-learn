@@ -14,6 +14,7 @@ GeocoderService,
 GeographicProjection,
 HeadingPitchRange,
 Ion,
+IonGeocodeProviderType,
 JulianDate,
 MapProjection,
 Plane,
@@ -2102,7 +2103,7 @@ export namespace Viewer {
      * @property [baseLayerPicker = true] - If set to false, the BaseLayerPicker widget will not be created.
      * @property [fullscreenButton = true] - If set to false, the FullscreenButton widget will not be created.
      * @property [vrButton = false] - If set to true, the VRButton widget will be created.
-     * @property [geocoder = true] - If set to false, the Geocoder widget will not be created.
+     * @property [geocoder = IonGeocodeProviderType.DEFAULT] - The geocoding service or services to use when searching with the Geocoder widget. If set to false, the Geocoder widget will not be created.
      * @property [homeButton = true] - If set to false, the HomeButton widget will not be created.
      * @property [infoBox = true] - If set to false, the InfoBox widget will not be created.
      * @property [sceneModePicker = true] - If set to false, the SceneModePicker widget will not be created.
@@ -2117,7 +2118,7 @@ export namespace Viewer {
      * @property [imageryProviderViewModels = createDefaultImageryProviderViewModels()] - The array of ProviderViewModels to be selectable from the BaseLayerPicker.  This value is only valid if `baseLayerPicker` is set to true.
      * @property [selectedTerrainProviderViewModel] - The view model for the current base terrain layer, if not supplied the first available base layer is used.  This value is only valid if `baseLayerPicker` is set to true.
      * @property [terrainProviderViewModels = createDefaultTerrainProviderViewModels()] - The array of ProviderViewModels to be selectable from the BaseLayerPicker.  This value is only valid if `baseLayerPicker` is set to true.
-     * @property [baseLayer = ImageryLayer.fromWorldImagery()] - The bottommost imagery layer applied to the globe. If set to <code>false</code>, no imagery provider will be added. This value is only valid if `baseLayerPicker` is set to false.
+     * @property [baseLayer = ImageryLayer.fromWorldImagery()] - The bottommost imagery layer applied to the globe. If set to <code>false</code>, no imagery provider will be added. This value is only valid if `baseLayerPicker` is set to false. Cannot be used when `globe` is set to false.
      * @property [ellipsoid = Ellipsoid.default] - The default ellipsoid.
      * @property [terrainProvider = new EllipsoidTerrainProvider()] - The terrain provider to use
      * @property [terrain] - A terrain object which handles asynchronous terrain provider. Can only specify if options.terrainProvider is undefined.
@@ -2146,14 +2147,14 @@ export namespace Viewer {
      * @property [requestRenderMode = false] - If true, rendering a frame will only occur when needed as determined by changes within the scene. Enabling reduces the CPU/GPU usage of your application and uses less battery on mobile, but requires using {@link Scene#requestRender} to render a new frame explicitly in this mode. This will be necessary in many cases after making changes to the scene in other parts of the API. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
      * @property [maximumRenderTimeChange = 0.0] - If requestRenderMode is true, this value defines the maximum change in simulation time allowed before a render is requested. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
      * @property [depthPlaneEllipsoidOffset = 0.0] - Adjust the DepthPlane to address rendering artefacts below ellipsoid zero elevation.
-     * @property [msaaSamples = 1] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets.
+     * @property [msaaSamples = 4] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets. Set to 1 to disable MSAA.
      */
     type ConstructorOptions = {
         animation?: boolean;
         baseLayerPicker?: boolean;
         fullscreenButton?: boolean;
         vrButton?: boolean;
-        geocoder?: boolean | GeocoderService[];
+        geocoder?: boolean | IonGeocodeProviderType | GeocoderService[];
         homeButton?: boolean;
         infoBox?: boolean;
         sceneModePicker?: boolean;

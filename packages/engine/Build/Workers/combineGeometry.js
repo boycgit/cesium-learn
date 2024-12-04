@@ -1,7 +1,7 @@
 /**
  * @license
  * Cesium - https://github.com/CesiumGS/cesium
- * Version 1.120
+ * Version 1.124
  *
  * Copyright 2011-2022 Cesium Contributors
  *
@@ -25,35 +25,33 @@
 
 import {
   PrimitivePipeline_default
-} from "./chunk-VRZ46QZ5.js";
+} from "./chunk-W2E67GLE.js";
 import {
   createTaskProcessorWorker_default
-} from "./chunk-MMV6TO3P.js";
-import "./chunk-QYQIVZBU.js";
-import "./chunk-PNFHVBSF.js";
-import "./chunk-J7MQUQJY.js";
-import "./chunk-SAPFXU5X.js";
-import "./chunk-TF776XCO.js";
-import "./chunk-A5CODJ4M.js";
-import "./chunk-EB7PNZTK.js";
-import "./chunk-JYQNWIQQ.js";
-import "./chunk-IUROUBPA.js";
-import "./chunk-ELI4BUOT.js";
-import "./chunk-OXALEQPI.js";
-import "./chunk-FQPSOOPH.js";
-import "./chunk-T6LPN7RI.js";
-import "./chunk-R4OIEIPE.js";
-import "./chunk-RHBWXX7C.js";
-import "./chunk-ZIKGV7EL.js";
-import "./chunk-BAVI3ZS2.js";
-import "./chunk-TGY6H6N6.js";
-import "./chunk-N4QEHO3U.js";
+} from "./chunk-YDEZMDB7.js";
+import "./chunk-FLPIQK2R.js";
+import "./chunk-NVFEDMX4.js";
+import "./chunk-RR4M3ZGF.js";
+import "./chunk-RIQGQMS4.js";
+import "./chunk-CQDSGG3R.js";
+import "./chunk-3VHIUS7I.js";
+import "./chunk-Z7OYBX6P.js";
+import "./chunk-22NU5WU5.js";
+import "./chunk-PMNQULFU.js";
+import "./chunk-2OD54CUD.js";
+import "./chunk-BFNZUP2C.js";
+import "./chunk-H4Y7ADFL.js";
+import "./chunk-XQP37R5E.js";
+import "./chunk-RGZWZ4PP.js";
+import "./chunk-ZIWULRRD.js";
+import "./chunk-2TSF7N76.js";
+import "./chunk-BLTSMJIP.js";
+import "./chunk-FANORJU6.js";
+import "./chunk-S4SCKDK4.js";
 
 // packages/engine/Source/Workers/combineGeometry.js
 function combineGeometry(packedParameters, transferableObjects) {
-  const parameters = PrimitivePipeline_default.unpackCombineGeometryParameters(
-    packedParameters
-  );
+  const parameters = PrimitivePipeline_default.unpackCombineGeometryParameters(packedParameters);
   const results = PrimitivePipeline_default.combineGeometry(parameters);
   return PrimitivePipeline_default.packCombineGeometryResults(
     results,
