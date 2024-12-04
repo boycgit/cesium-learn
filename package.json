@@ -122,7 +122,8 @@
     "test-e2e-release-all": "release=true playwright test -c Specs/e2e/playwright.config.js",
     "test-e2e-report": "playwright show-report Build/Specs/e2e/report",
     "test-e2e-update": "playwright test -c Specs/e2e/playwright.config.js --project=chromium -u",
-    "prettier-check": "prettier --check --no-config \"**/*\""
+    "prettier-check": "prettier --check --no-config \"**/*\"",
+    "copy-files": "gulp --gulpfile gulpfile.copy.js"
   },
   "engines": {
     "node": ">=18.18.0"
