@@ -41,7 +41,32 @@
         //Sandcastle_Begin
         const viewer = new Cesium.Viewer("cesiumContainer", {
           orderIndependentTranslucency: false,
+          geocoder: false, //搜索框
+          selectionIndicator: false,
+          animation: false, // 隐藏动画控件
+          baseLayerPicker: false, // 隐藏图层选择控件
+          fullscreenButton: false, // 隐藏全屏按钮
+          vrButton: false, // 隐藏VR按钮，默认false
+          homeButton: false, // 隐藏Home按钮
+          // infoBox: false, // 隐藏点击要素之后显示的信息窗口
+          searchBox: false, // 隐藏搜索框
+          sceneModePicker: false, // 隐藏场景模式选择控件
+          timeline: false, // 隐藏时间线控件
+          navigationHelpButton: false, // 隐藏帮助按钮
+          scene3DOnly: true, // 每个几何实例将只在3D中呈现，以节省GPU内存
+          shouldAnimate: true, // 开启动画自动播放
+          sceneMode: 3, // 初始场景模式 1：2D 2：2D循环 3：3D，默认3
         });
+        viewer.cesiumWidget.creditContainer.style.display = "none"
+
+        // 获取 Cesium Viewer 实例中的时钟对象
+        // const clock = viewer.clock;
+
+        // // 设置时间流逝速度为正常速度的 10 倍
+        // // 开始/暂停
+        // clock.multiplier = 10;
+        // clock.shouldAnimate = true;
+        // clock.clockRange = Cesium.ClockRange.CLAMPED;
 
         viewer.clock.currentTime = Cesium.JulianDate.fromIso8601(
           "2021-11-09T20:27:37.016064475348684937Z",
@@ -97,7 +122,7 @@
           fragmentShaderText: `
             void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material)
             {
-                vec2 texCoord = fsInput.attributes.texCoord_0 + 0.1 * vec2(u_time, 0.0);
+                vec2 texCoord = fsInput.attributes.texCoord_0 + 0.2 * vec2(u_time, 0.0);
                 material.diffuse = texture(u_stripes, texCoord).rgb;
             }
             `,
@@ -288,10 +313,10 @@
             // is computed relative to the center of the model, hence the
             // transformations from [0, 1] -> [-1, 1] -> [0, 1]
                 float amplitude = 2.0 * vsInput.attributes.positionMC.z - 1.0;
-                float wave = amplitude * sin(2.0 * czm_pi * uv.x - 2.0 * u_time) * sin(u_time);
+                float wave = amplitude * sin(2.0 * czm_pi * uv.x - 2.0 * u_time * 4.0) * sin(u_time * 4.0);
                 vsOutput.positionMC.z = 0.5 + 0.5 * wave;
             // Make the points pulse in and out by changing their size
-                vsOutput.pointSize = 10.0 + 5.0 * sin(u_time);
+                vsOutput.pointSize = 10.0 + 5.0 * sin(u_time * 4.0);
             }
             `,
           fragmentShaderText: `
@@ -307,7 +332,7 @@
             // Coefficients were chosen arbitrarily
                 vec2 uv = fsInput.attributes.positionMC.xy;
                 material.diffuse = 0.2 * fsInput.attributes.color_0.rgb;
-                material.diffuse += vec3(0.2, 0.3, 0.4) + vec3(0.2, 0.3, 0.4) * sin(2.0 * czm_pi * vec3(3.0, 2.0, 1.0) * uv.x - 3.0 * u_time);
+                material.diffuse += vec3(0.2, 0.3, 0.4) + vec3(0.2, 0.3, 0.4) * sin(2.0 * czm_pi * vec3(3.0, 2.0, 1.0) * uv.x - 3.0 * u_time * 4.0);
             }
             `,
         });

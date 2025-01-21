@@ -47,20 +47,20 @@
         <tbody>
           <tr>
             <td colspan="3">
-              <h4>Cesium GPM Visualization</h4>
+              <h4>Cesium GPM 可视化</h4>
             </td>
           </tr>
           <tr>
-            <td>Data set</td>
+            <td>数据集</td>
             <td>
               <select data-bind="options: dataSetNames, value: dataSetName"></select>
             </td>
             <td style="text-align: right">
-              <button type="button" data-bind="click: zoomToCurrentTileset">Zoom</button>
+              <button type="button" data-bind="click: zoomToCurrentTileset">缩放</button>
             </td>
           </tr>
           <tr>
-            <td>Anchor point ellipsoid</td>
+            <td>锚点椭球体</td>
             <td colspan="2">
               <input
                 type="range"
@@ -78,18 +78,18 @@
                 ><input
                   type="checkbox"
                   data-bind="checked: anchorPointLabelsVisible"
-                />Labels</label
+                />标签</label
               >
             </td>
           </tr>
           <tr>
-            <td>Shader mode</td>
+            <td>着色器模式</td>
             <td colspan="2">
               <select data-bind="options: shaderModes, value: shaderMode"></select>
             </td>
           </tr>
           <tr id="texture-threshold-control" class="hidden">
-            <td>Texture threshold (m)</td>
+            <td>纹理阈值 (米)</td>
             <td>
               <input
                 type="range"
@@ -104,19 +104,16 @@
           <tr>
             <td colspan="3">
               <br />
-              Uncertainty information is stored as GPM metadata in the tiles.<br />
+              不确定性信息作为 GPM metadata 存储在 tiles 中。<br />
               <br />
-              The <i>anchor points</i> provide information about the low-frequency
-              error.<br />
-              This error is visualized as ellipsoids.<br />
+              <i>锚点</i>提供了低频误差信息。<br />
+              这个误差通过椭球体进行可视化。<br />
               <br />
-              The high-frequency error is represented as
-              <i>Per-Point Error</i> textures.<br />
-              This error can be visualized with custom shaders. The 'uncertainty'<br />
-              shaders visualize the horizontal or vertical uncertainty with a color<br />
-              scale. The 'threshold' shaders highlight areas where the selected<br />
-              error threshold is exceeded. Picking a point on the tileset will show<br />
-              a label with the actual error values.
+              高频误差表示为<i>每点误差</i>纹理。<br />
+              这个误差可以通过自定义着色器进行可视化。'uncertainty'<br />
+              着色器使用颜色比例显示水平或垂直不确定性。'threshold'<br />
+              着色器突出显示超过所选误差阈值的区域。在 tileset 上选择一个点将显示<br />
+              包含实际误差值的标签。
             </td>
           </tr>
         </tbody>
