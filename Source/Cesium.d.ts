@@ -3553,11 +3553,11 @@ export class Color {
     static clone(color: Color, result?: Color): Color;
     /**
      * Returns true if the first Color equals the second color.
-     * @param left - The first Color to compare for equality.
-     * @param right - The second Color to compare for equality.
+     * @param [left] - The first Color to compare for equality.
+     * @param [right] - The second Color to compare for equality.
      * @returns <code>true</code> if the Colors are equal; otherwise, <code>false</code>.
      */
-    static equals(left: Color, right: Color): boolean;
+    static equals(left?: Color, right?: Color): boolean;
     /**
      * Returns a duplicate of a Color instance.
      * @param [result] - The object to store the result in, if undefined a new instance will be created.
@@ -3566,10 +3566,10 @@ export class Color {
     clone(result?: Color): Color;
     /**
      * Returns true if this Color equals other.
-     * @param other - The Color to compare for equality.
+     * @param [other] - The Color to compare for equality.
      * @returns <code>true</code> if the Colors are equal; otherwise, <code>false</code>.
      */
-    equals(other: Color): boolean;
+    equals(other?: Color): boolean;
     /**
      * Returns <code>true</code> if this Color equals other componentwise within the specified epsilon.
      * @param other - The Color to compare for equality.
@@ -4963,17 +4963,17 @@ export class Credit {
     readonly element: HTMLElement;
     /**
      * Returns true if the credits are equal
-     * @param left - The first credit
-     * @param right - The second credit
+     * @param [left] - The first credit
+     * @param [right] - The second credit
      * @returns <code>true</code> if left and right are equal, <code>false</code> otherwise.
      */
-    static equals(left: Credit, right: Credit): boolean;
+    static equals(left?: Credit, right?: Credit): boolean;
     /**
      * Returns true if the credits are equal
-     * @param credit - The credit to compare to.
+     * @param [credit] - The credit to compare to.
      * @returns <code>true</code> if left and right are equal, <code>false</code> otherwise.
      */
-    equals(credit: Credit): boolean;
+    equals(credit?: Credit): boolean;
     /**
      * Duplicates a Credit instance.
      * @param [credit] - The Credit to duplicate.
@@ -5349,11 +5349,11 @@ export class DistanceDisplayCondition {
     static unpack(array: number[], startingIndex?: number, result?: DistanceDisplayCondition): DistanceDisplayCondition;
     /**
      * Determines if two distance display conditions are equal.
-     * @param left - A distance display condition.
-     * @param right - Another distance display condition.
+     * @param [left] - A distance display condition.
+     * @param [right] - Another distance display condition.
      * @returns Whether the two distance display conditions are equal.
      */
-    static equals(left: DistanceDisplayCondition, right: DistanceDisplayCondition): boolean;
+    static equals(left?: DistanceDisplayCondition, right?: DistanceDisplayCondition): boolean;
     /**
      * Duplicates a distance display condition instance.
      * @param [value] - The distance display condition to duplicate.
@@ -5369,10 +5369,10 @@ export class DistanceDisplayCondition {
     clone(result?: DistanceDisplayCondition): DistanceDisplayCondition;
     /**
      * Determines if this distance display condition is equal to another.
-     * @param other - Another distance display condition.
+     * @param [other] - Another distance display condition.
      * @returns Whether this distance display condition is equal to the other.
      */
-    equals(other: DistanceDisplayCondition): boolean;
+    equals(other?: DistanceDisplayCondition): boolean;
 }
 
 /**
@@ -8401,7 +8401,7 @@ export namespace ITwinPlatform {
     enum ExportType {
     }
     /**
-     * Types of Reality data
+     * Types of Reality data. This is a partial list of types we know we can support
      */
     enum RealityDataType {
     }
@@ -12024,11 +12024,11 @@ export class OrientedBoundingBox {
     /**
      * Compares the provided OrientedBoundingBox componentwise and returns
      * <code>true</code> if they are equal, <code>false</code> otherwise.
-     * @param left - The first OrientedBoundingBox.
-     * @param right - The second OrientedBoundingBox.
+     * @param [left] - The first OrientedBoundingBox.
+     * @param [right] - The second OrientedBoundingBox.
      * @returns <code>true</code> if left and right are equal, <code>false</code> otherwise.
      */
-    static equals(left: OrientedBoundingBox, right: OrientedBoundingBox): boolean;
+    static equals(left?: OrientedBoundingBox, right?: OrientedBoundingBox): boolean;
     /**
      * Duplicates this OrientedBoundingBox instance.
      * @param [result] - The object onto which to store the result.
@@ -16175,11 +16175,11 @@ export class Spherical {
     static normalize(spherical: Spherical, result?: Spherical): Spherical;
     /**
      * Returns true if the first spherical is equal to the second spherical, false otherwise.
-     * @param left - The first Spherical to be compared.
-     * @param right - The second Spherical to be compared.
+     * @param [left] - The first Spherical to be compared.
+     * @param [right] - The second Spherical to be compared.
      * @returns true if the first spherical is equal to the second spherical, false otherwise.
      */
-    static equals(left: Spherical, right: Spherical): boolean;
+    static equals(left?: Spherical, right?: Spherical): boolean;
     /**
      * Returns true if the first spherical is within the provided epsilon of the second spherical, false otherwise.
      * @param left - The first Spherical to be compared.
@@ -16190,10 +16190,10 @@ export class Spherical {
     static equalsEpsilon(left: Spherical, right: Spherical, epsilon?: number): boolean;
     /**
      * Returns true if this spherical is equal to the provided spherical, false otherwise.
-     * @param other - The Spherical to be compared.
+     * @param [other] - The Spherical to be compared.
      * @returns true if this spherical is equal to the provided spherical, false otherwise.
      */
-    equals(other: Spherical): boolean;
+    equals(other?: Spherical): boolean;
     /**
      * Creates a duplicate of this Spherical.
      * @param [result] - The object to store the result into, if undefined a new instance will be created.
@@ -18491,6 +18491,7 @@ export function defaultValue(a: any, b: any): any;
  */
 export function defined<Type>(value: Type): value is NonNullable<Type>;
 
+
 /**
  * Destroys an object.  Each of the object's functions, including functions in its prototype,
  * is replaced with a function that throws a {@link DeveloperError}, except for the object's
@@ -18760,7 +18761,6 @@ export function subdivideArray(array: any[], numberOfArrays: number): void;
  * @param text - The text to write.
  * @param [options] - Object with the following properties:
  * @param [options.font = '10px sans-serif'] - The CSS font to use.
- * @param [options.textBaseline = 'bottom'] - The baseline of the text.
  * @param [options.fill = true] - Whether to fill the text.
  * @param [options.stroke = false] - Whether to stroke the text.
  * @param [options.fillColor = Color.WHITE] - The fill color.
@@ -18774,7 +18774,6 @@ export function subdivideArray(array: any[], numberOfArrays: number): void;
  */
 export function writeTextToCanvas(text: string, options?: {
     font?: string;
-    textBaseline?: string;
     fill?: boolean;
     stroke?: boolean;
     fillColor?: Color;
@@ -19039,6 +19038,21 @@ export class BillboardVisualizer {
      */
     destroy(): void;
 }
+
+/**
+ * The BoundingSphere has been computed.
+ */
+export const DONE = 0;
+
+/**
+ * The BoundingSphere is still being computed.
+ */
+export const PENDING = 1;
+
+/**
+ * The BoundingSphere does not exist.
+ */
+export const FAILED = 2;
 
 /**
  * A {@link GeometryUpdater} for boxes.
@@ -20437,10 +20451,10 @@ export class DataSourceClock {
     clone(result?: DataSourceClock): DataSourceClock;
     /**
      * Returns true if this DataSourceClock is equivalent to the other
-     * @param other - The other DataSourceClock to compare to.
+     * @param [other] - The other DataSourceClock to compare to.
      * @returns <code>true</code> if the DataSourceClocks are equal; otherwise, <code>false</code>.
      */
-    equals(other: DataSourceClock): boolean;
+    equals(other?: DataSourceClock): boolean;
     /**
      * Assigns each unassigned property on this object to the value
      * of the same property on the provided source object.
@@ -22746,6 +22760,7 @@ export namespace ModelGraphics {
      * @property [colorBlendMode = ColorBlendMode.HIGHLIGHT] - An enum Property specifying how the color blends with the model.
      * @property [colorBlendAmount = 0.5] - A numeric Property specifying the color strength when the <code>colorBlendMode</code> is <code>MIX</code>. A value of 0.0 results in the model's rendered color while a value of 1.0 results in a solid color, with any value in-between resulting in a mix of the two.
      * @property [imageBasedLightingFactor = new Cartesian2(1.0, 1.0)] - A property specifying the contribution from diffuse and specular image-based lighting.
+     * @property [environmentMapOptions] - The properties for managing dynamic environment maps on this entity.
      * @property [lightColor] - A property specifying the light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
      * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this model will be displayed.
      * @property [nodeTransformations] - An object, where keys are names of nodes, and values are {@link TranslationRotationScale} Properties describing the transformation to apply to that node. The transformation is applied after the node's existing transformation as specified in the glTF, and does not replace the node's existing transformation.
@@ -22771,6 +22786,9 @@ export namespace ModelGraphics {
         colorBlendMode?: Property | ColorBlendMode;
         colorBlendAmount?: Property | number;
         imageBasedLightingFactor?: Property | Cartesian2;
+        environmentMapOptions?: PropertyBag | {
+            [key: string]: any;
+        };
         lightColor?: Property | Color;
         distanceDisplayCondition?: Property | DistanceDisplayCondition;
         nodeTransformations?: PropertyBag | {
@@ -22878,6 +22896,10 @@ export class ModelGraphics {
      * A property specifying the {@link Cartesian2} used to scale the diffuse and specular image-based lighting contribution to the final color.
      */
     imageBasedLightingFactor: Property | undefined;
+    /**
+     * Gets or sets the {@link DynamicEnvironmentMapManager.ConstructorOptions} to apply to this model. This is represented as an {@link PropertyBag}.
+     */
+    environmentMapOptions: PropertyBag;
     /**
      * A property specifying the {@link Cartesian3} light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
      */
@@ -26466,10 +26488,10 @@ export class Billboard {
     /**
      * Determines if this billboard equals another billboard.  Billboards are equal if all their properties
      * are equal.  Billboards in different collections can be equal.
-     * @param other - The billboard to compare for equality.
+     * @param [other] - The billboard to compare for equality.
      * @returns <code>true</code> if the billboards are equal; otherwise, <code>false</code>.
      */
-    equals(other: Billboard): boolean;
+    equals(other?: Billboard): boolean;
 }
 
 /**
@@ -29237,6 +29259,7 @@ export namespace Cesium3DTileset {
      * @property [pointCloudShading] - Options for constructing a {@link PointCloudShading} object to control point attenuation based on geometric error and lighting.
      * @property [lightColor] - The light color when shading models. When <code>undefined</code> the scene's light color is used instead.
      * @property [imageBasedLighting] - The properties for managing image-based lighting for this tileset.
+     * @property [environmentMapOptions] - The properties for managing dynamic environment maps on this tileset.
      * @property [backFaceCulling = true] - Whether to cull back-facing geometry. When true, back face culling is determined by the glTF material's doubleSided property; when false, back face culling is disabled.
      * @property [enableShowOutline = true] - Whether to enable outlines for models using the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. This can be set to false to avoid the additional processing of geometry at load time. When false, the showOutlines and outlineColor options are ignored.
      * @property [showOutline = true] - Whether to display the outline for models using the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. When true, outlines are displayed. When false, outlines are not displayed.
@@ -29262,7 +29285,6 @@ export namespace Cesium3DTileset {
      * @property [debugShowRenderingStatistics = false] - For debugging only. When true, draws labels to indicate the number of commands, points, triangles and features for each tile.
      * @property [debugShowMemoryUsage = false] - For debugging only. When true, draws labels to indicate the texture and geometry memory in megabytes used by each tile.
      * @property [debugShowUrl = false] - For debugging only. When true, draws labels to indicate the url of each tile.
-     * @param [options.environmentMapOptions] - The properties for managing dynamic environment maps on this model.
      */
     type ConstructorOptions = {
         show?: boolean;
@@ -29302,6 +29324,7 @@ export namespace Cesium3DTileset {
         pointCloudShading?: any;
         lightColor?: Cartesian3;
         imageBasedLighting?: ImageBasedLighting;
+        environmentMapOptions?: DynamicEnvironmentMapManager.ConstructorOptions;
         backFaceCulling?: boolean;
         enableShowOutline?: boolean;
         showOutline?: boolean;
@@ -30636,7 +30659,7 @@ export class ClippingPolygon {
      * @param right - The second polygon.
      * @returns <code>true</code> if left and right are equal, <code>false</code> otherwise.
      */
-    static equals(left: Plane, right: Plane): boolean;
+    static equals(left: ClippingPolygon, right: ClippingPolygon): boolean;
     /**
      * Computes a cartographic rectangle which encloses the polygon defined by the list of positions, including cases over the international date line and the poles.
      * @param [result] - An object in which to store the result.
@@ -31696,7 +31719,7 @@ export namespace DynamicEnvironmentMapManager {
     /**
      * Options for the DynamicEnvironmentMapManager constructor
      * @property [enabled = true] - If true, the environment map and related properties will continue to update.
-     * @property [mipmapLevels = 10] - The number of mipmap levels to generate for specular maps. More mipmap levels will produce a higher resolution specular reflection.
+     * @property [mipmapLevels = 7] - The number of mipmap levels to generate for specular maps. More mipmap levels will produce a higher resolution specular reflection.
      * @property [maximumSecondsDifference = 3600] - The maximum amount of elapsed seconds before a new environment map is created.
      * @property [maximumPositionEpsilon = 1000] - The maximum difference in position before a new environment map is created, in meters. Small differences in position will not visibly affect results.
      * @property [atmosphereScatteringIntensity = 2.0] - The intensity of the scattered light emitted from the atmosphere. This should be adjusted relative to the value of {@link Scene.light} intensity.
@@ -34011,6 +34034,25 @@ export namespace ITwinData {
      * @param [rootDocument] - The path of the root document for this reality data
      */
     function createTilesetForRealityDataId(iTwinId: string, realityDataId: string, type?: ITwinPlatform.RealityDataType, rootDocument?: string): Promise<Cesium3DTileset>;
+    /**
+     * Create a data source of the correct type for the specified reality data id.
+     * This function only works for KML and GeoJSON type data.
+     *
+     * If the <code>type</code> or <code>rootDocument</code> are not provided this function
+     * will first request the full metadata for the specified reality data to fill these values.
+     * @param iTwinId - The id of the iTwin to load data from
+     * @param realityDataId - The id of the reality data to load
+     * @param [type] - The type of this reality data
+     * @param [rootDocument] - The path of the root document for this reality data
+     */
+    function createDataSourceForRealityDataId(iTwinId: string, realityDataId: string, type?: ITwinPlatform.RealityDataType, rootDocument?: string): Promise<GeoJsonDataSource | KmlDataSource>;
+    /**
+     * Load data from the Geospatial Features API as GeoJSON.
+     * @param iTwinId - The id of the iTwin to load data from
+     * @param collectionId - The id of the data collection to load
+     * @param [limit = 10000] - number of items per page, must be between 1 and 10,000 inclusive
+     */
+    function loadGeospatialFeatures(iTwinId: string, collectionId: string, limit?: number): Promise<GeoJsonDataSource>;
 }
 
 /**
@@ -34364,10 +34406,10 @@ export class ImageryLayer {
      *   alert(`Encountered an error while creating an imagery layer! ${error}`);
      * });
      * @param imageryProviderPromise - A promise which resolves to a imagery provider
-     * @param options - An object describing initialization options
+     * @param [options] - An object describing initialization options
      * @returns The created imagery layer.
      */
-    static fromProviderAsync(imageryProviderPromise: Promise<ImageryProvider>, options: ImageryLayer.ConstructorOptions): ImageryLayer;
+    static fromProviderAsync(imageryProviderPromise: Promise<ImageryProvider>, options?: ImageryLayer.ConstructorOptions): ImageryLayer;
     /**
      * Create a new imagery layer for ion's default global base imagery layer, currently Bing Maps. The layer will handle any asynchronous loads or errors, and begin rendering the imagery layer once ready.
      * @example
@@ -35195,10 +35237,10 @@ export class Label {
     /**
      * Determines if this label equals another label.  Labels are equal if all their properties
      * are equal.  Labels in different collections can be equal.
-     * @param other - The label to compare for equality.
+     * @param [other] - The label to compare for equality.
      * @returns <code>true</code> if the labels are equal; otherwise, <code>false</code>.
      */
-    equals(other: Label): boolean;
+    equals(other?: Label): boolean;
     /**
      * Returns true if this object was destroyed; otherwise, false.
      * <br /><br />
@@ -37596,7 +37638,7 @@ export class Model {
      *
      * The given name may be the name of a glTF extension, like `"EXT_example_extension"`.
      * If the specified extension was present in the root of the underlying glTF asset,
-     * and a loder for the specified extension has processed the extension data, then
+     * and a loader for the specified extension has processed the extension data, then
      * this will return the model representation of the extension.
      * @param extensionName - The name of the extension
      * @returns The object, or `undefined`
@@ -39260,10 +39302,10 @@ export class PointPrimitive {
     /**
      * Determines if this point equals another point.  Points are equal if all their properties
      * are equal.  Points in different collections can be equal.
-     * @param other - The point to compare for equality.
+     * @param [other] - The point to compare for equality.
      * @returns <code>true</code> if the points are equal; otherwise, <code>false</code>.
      */
-    equals(other: PointPrimitive): boolean;
+    equals(other?: PointPrimitive): boolean;
 }
 
 /**
@@ -43492,6 +43534,95 @@ export class VoxelPrimitive {
         clock?: Clock;
     });
     /**
+     * The number of levels of detail containing available tiles in the tileset.
+     */
+    readonly availableLevels: number | undefined;
+    /**
+     * The event fired to indicate that a tile's content was loaded.
+     * <p>
+     * This event is fired during the tileset traversal while the frame is being rendered
+     * so that updates to the tile take effect in the same frame.  Do not create or modify
+     * Cesium entities or primitives during the event listener.
+     * </p>
+     * @example
+     * voxelPrimitive.tileLoad.addEventListener(function() {
+     *     console.log('A tile was loaded.');
+     * });
+     */
+    tileLoad: Event;
+    /**
+     * This event fires once for each visible tile in a frame.
+     * <p>
+     * This event is fired during the traversal while the frame is being rendered.
+     * @example
+     * voxelPrimitive.tileVisible.addEventListener(function() {
+     *     console.log('A tile is visible.');
+     * });
+     */
+    tileVisible: Event;
+    /**
+     * The event fired to indicate that a tile's content failed to load.
+     * @example
+     * voxelPrimitive.tileFailed.addEventListener(function() {
+     *     console.log('An error occurred loading tile.');
+     * });
+     */
+    tileFailed: Event;
+    /**
+     * The event fired to indicate that a tile's content was unloaded.
+     * @example
+     * voxelPrimitive.tileUnload.addEventListener(function() {
+     *     console.log('A tile was unloaded from the cache.');
+     * });
+     */
+    tileUnload: Event;
+    /**
+     * The event fired to indicate progress of loading new tiles. This event is fired when a new tile
+     * is requested, when a requested tile is finished downloading, and when a downloaded tile has been
+     * processed and is ready to render.
+     * <p>
+     * The number of pending tile requests, <code>numberOfPendingRequests</code>, and number of tiles
+     * processing, <code>numberOfTilesProcessing</code> are passed to the event listener.
+     * </p>
+     * <p>
+     * This event is fired at the end of the frame after the scene is rendered.
+     * </p>
+     * @example
+     * voxelPrimitive.loadProgress.addEventListener(function(numberOfPendingRequests, numberOfTilesProcessing) {
+     *     if ((numberOfPendingRequests === 0) && (numberOfTilesProcessing === 0)) {
+     *         console.log('Finished loading');
+     *         return;
+     *     }
+     *
+     *     console.log(`Loading: requests: ${numberOfPendingRequests}, processing: ${numberOfTilesProcessing}`);
+     * });
+     */
+    loadProgress: Event;
+    /**
+     * The event fired to indicate that all tiles that meet the screen space error this frame are loaded. The voxel
+     * primitive is completely loaded for this view.
+     * <p>
+     * This event is fired at the end of the frame after the scene is rendered.
+     * </p>
+     * @example
+     * voxelPrimitive.allTilesLoaded.addEventListener(function() {
+     *     console.log('All tiles are loaded');
+     * });
+     */
+    allTilesLoaded: Event;
+    /**
+     * The event fired to indicate that all tiles that meet the screen space error this frame are loaded. This event
+     * is fired once when all tiles in the initial view are loaded.
+     * <p>
+     * This event is fired at the end of the frame after the scene is rendered.
+     * </p>
+     * @example
+     * voxelPrimitive.initialTilesLoaded.addEventListener(function() {
+     *     console.log('Initial tiles are loaded');
+     * });
+     */
+    initialTilesLoaded: Event;
+    /**
      * Gets a value indicating whether or not the primitive is ready for use.
      */
     readonly ready: boolean;
@@ -43706,6 +43837,11 @@ export class VoxelProvider {
         tileZ?: number;
     }): Promise<any[][]> | undefined;
 }
+
+/**
+ * The number of levels of detail containing available tiles in the tileset.
+ */
+export const availableLevels: number | undefined;
 
 export const shaderUniforms: {
     [key: string]: any;
@@ -44007,7 +44143,7 @@ export namespace WebMapTileServiceImageryProvider {
  * @example
  * // Example 1. USGS shaded relief tiles (KVP)
  * const shadedRelief1 = new Cesium.WebMapTileServiceImageryProvider({
- *     url : 'http://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS',
+ *     url : 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS',
  *     layer : 'USGSShadedReliefOnly',
  *     style : 'default',
  *     format : 'image/jpeg',
@@ -44020,7 +44156,7 @@ export namespace WebMapTileServiceImageryProvider {
  * @example
  * // Example 2. USGS shaded relief tiles (RESTful)
  * const shadedRelief2 = new Cesium.WebMapTileServiceImageryProvider({
- *     url : 'http://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS/tile/1.0.0/USGSShadedReliefOnly/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg',
+ *     url : 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS/tile/1.0.0/USGSShadedReliefOnly/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg',
  *     layer : 'USGSShadedReliefOnly',
  *     style : 'default',
  *     format : 'image/jpeg',

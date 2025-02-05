@@ -1,6 +1,6 @@
 // This file is automatically rebuilt by the Cesium build process.
 const hello_world_index = 124;
-const VERSION = '1.124';
+const VERSION = '1.126';
 const gallery_demos = [{
   "name": "3D Models",
   "isNew": false,
@@ -71,7 +71,7 @@ const gallery_demos = [{
   "img": "3D Tiles Interior.jpg"
 }, {
   "name": "3D Tiles NGA GPM Visualization",
-  "isNew": true,
+  "isNew": false,
   "img": "3D Tiles NGA GPM Visualization.jpg"
 }, {
   "name": "3D Tiles Photogrammetry",
@@ -107,7 +107,7 @@ const gallery_demos = [{
   "img": "3D Tiles Vertical Exaggeration.jpg"
 }, {
   "name": "AEC Architectural Design",
-  "isNew": true,
+  "isNew": false,
   "img": "AEC Architectural Design.jpg"
 }, {
   "name": "AEC Clipping",
@@ -115,11 +115,11 @@ const gallery_demos = [{
   "img": "AEC Clipping.jpg"
 }, {
   "name": "AEC Isolate by Category",
-  "isNew": true,
+  "isNew": false,
   "img": "AEC Isolate by Category.jpg"
 }, {
   "name": "AEC Metadata Styling",
-  "isNew": true,
+  "isNew": false,
   "img": "AEC Metadata Styling.jpg"
 }, {
   "name": "Aerometrex San Francisco",
@@ -423,7 +423,7 @@ const gallery_demos = [{
   "img": "Elevation Band Material.jpg"
 }, {
   "name": "Entity tracking",
-  "isNew": true,
+  "isNew": false,
   "img": "Entity tracking.jpg"
 }, {
   "name": "Export KML",
@@ -811,7 +811,11 @@ const gallery_demos = [{
   "img": "glTF PBR Extensions.jpg"
 }, {
   "name": "iModel Mesh Export Service",
-  "isNew": true,
+  "isNew": false,
   "img": "iModel Mesh Export Service.jpg"
+}, {
+  "name": "iTwin Feature Service",
+  "isNew": false,
+  "img": "iTwin Feature Service.jpg"
 }];
 const has_new_gallery_demos = true;
