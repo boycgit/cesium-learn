@@ -67,7 +67,10 @@
         // We create two viewers, a 2D and a 3D one
         // The CSS is set up to place them side by side
         const view3D = new Cesium.Viewer("view3D", options3D);
+        view3D.cesiumWidget.creditContainer.style.display = "none"
+
         const view2D = new Cesium.Viewer("view2D", options2D);
+        view2D.cesiumWidget.creditContainer.style.display = "none"
 
         let worldPosition;
         let distance;
