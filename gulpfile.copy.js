@@ -104,6 +104,16 @@ const filesToCopy = [
   'Apps/Sandcastle/gallery/Web Map Service (WMS).html',
   'Apps/Sandcastle/gallery/Web Map Tile Service with Time.html',
   'Apps/Sandcastle/gallery/iTwin Feature Service.html',
+  'Apps/Sandcastle/gallery/Aerometrex San Francisco.html',
+  'Apps/Sandcastle/gallery/ArcticDEM.html',
+  'Apps/Sandcastle/gallery/Blue Marble.html',
+  'Apps/Sandcastle/gallery/Cesium World Terrain.html',
+  'Apps/Sandcastle/gallery/Earth at Night.html',
+  'Apps/Sandcastle/gallery/Montreal Point Cloud.html',
+  'Apps/Sandcastle/gallery/Natural Earth II.html',
+  'Apps/Sandcastle/gallery/PAMAP Terrain.html',
+  'Apps/Sandcastle/gallery/Sentinel-2.html',
+  'Apps/Sandcastle/gallery/Washington DC 2017.html',
 ];
 
 // 定义目标目录
