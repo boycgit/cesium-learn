@@ -114,6 +114,19 @@ const filesToCopy = [
   'Apps/Sandcastle/gallery/PAMAP Terrain.html',
   'Apps/Sandcastle/gallery/Sentinel-2.html',
   'Apps/Sandcastle/gallery/Washington DC 2017.html',
+
+  // Post Process
+   'Apps/Sandcastle/gallery/Ambient Occlusion.html',
+   'Apps/Sandcastle/gallery/Bloom.html',
+   'Apps/Sandcastle/gallery/Custom Per-Feature Post Process.html',
+   'Apps/Sandcastle/gallery/Custom Post Process.html',
+   'Apps/Sandcastle/gallery/Depth of Field.html',
+   'Apps/Sandcastle/gallery/FXAA.html',
+   'Apps/Sandcastle/gallery/Fog Post Process.html',
+   'Apps/Sandcastle/gallery/High Dynamic Range.html',
+   'Apps/Sandcastle/gallery/LensFlare.html',
+
+
 ];
 
 // 定义目标目录
