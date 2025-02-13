@@ -127,6 +127,25 @@ const filesToCopy = [
    'Apps/Sandcastle/gallery/LensFlare.html',
 
 
+  //  Geometries
+  'Apps/Sandcastle/gallery/Box.html',
+  'Apps/Sandcastle/gallery/Circles and Ellipses.html',
+  'Apps/Sandcastle/gallery/Corridor.html',
+  'Apps/Sandcastle/gallery/Cylinders and Cones.html',
+  'Apps/Sandcastle/gallery/Geometry Height Reference.html',
+  'Apps/Sandcastle/gallery/Parallels and Meridians.html',
+  'Apps/Sandcastle/gallery/Partial Ellipsoids.html',
+  'Apps/Sandcastle/gallery/Plane.html',
+  'Apps/Sandcastle/gallery/Polygon.html',
+  'Apps/Sandcastle/gallery/Polyline Dash.html',
+  'Apps/Sandcastle/gallery/Polyline Volume.html',
+  'Apps/Sandcastle/gallery/Polyline.html',
+  'Apps/Sandcastle/gallery/Rectangle.html',
+  'Apps/Sandcastle/gallery/Spheres and Ellipsoids.html',
+  'Apps/Sandcastle/gallery/Wall.html',
+  'Apps/Sandcastle/gallery/Z-Indexing Geometry.html'
+
+
 ];
 
 // 定义目标目录
