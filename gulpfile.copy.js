@@ -143,8 +143,21 @@ const filesToCopy = [
   'Apps/Sandcastle/gallery/Rectangle.html',
   'Apps/Sandcastle/gallery/Spheres and Ellipsoids.html',
   'Apps/Sandcastle/gallery/Wall.html',
-  'Apps/Sandcastle/gallery/Z-Indexing Geometry.html'
+  'Apps/Sandcastle/gallery/Z-Indexing Geometry.html',
 
+  // DataSources
+  'Apps/Sandcastle/gallery/CZML.html',
+  'Apps/Sandcastle/gallery/DataSource Ordering.html',
+  'Apps/Sandcastle/gallery/Export KML.html',
+  'Apps/Sandcastle/gallery/GPX.html',
+  'Apps/Sandcastle/gallery/GeoJSON simplestyle.html',
+  'Apps/Sandcastle/gallery/I3S 3D Object Layer.html',
+  'Apps/Sandcastle/gallery/I3S Building Scene Layer.html',
+  'Apps/Sandcastle/gallery/I3S Feature Picking.html',
+  'Apps/Sandcastle/gallery/I3S IntegratedMesh Layer.html',
+  'Apps/Sandcastle/gallery/KML Tours.html',
+  'Apps/Sandcastle/gallery/KML.html',
+  'Apps/Sandcastle/gallery/Multi-part CZML.html',
 
 ];
 
