@@ -159,6 +159,36 @@ const filesToCopy = [
   'Apps/Sandcastle/gallery/KML.html',
   'Apps/Sandcastle/gallery/Multi-part CZML.html',
 
+
+  // CZML
+  'Apps/Sandcastle/gallery/CZML 3D Tiles.html',
+  'Apps/Sandcastle/gallery/CZML Billboard and Label.html',
+  'Apps/Sandcastle/gallery/CZML Box.html',
+  'Apps/Sandcastle/gallery/CZML Circles and Ellipses.html',
+  'Apps/Sandcastle/gallery/CZML Colors.html',
+  'Apps/Sandcastle/gallery/CZML Cones and Cylinders.html',
+  'Apps/Sandcastle/gallery/CZML Corridor.html',
+  'Apps/Sandcastle/gallery/CZML Custom Properties.html',
+  'Apps/Sandcastle/gallery/CZML Model - Node Transformations.html',
+  'Apps/Sandcastle/gallery/CZML Model Articulations.html',
+  'Apps/Sandcastle/gallery/CZML Model Data URL.html',
+  'Apps/Sandcastle/gallery/CZML Model.html',
+  'Apps/Sandcastle/gallery/CZML Path.html',
+  'Apps/Sandcastle/gallery/CZML Point - Time Dynamic.html',
+  'Apps/Sandcastle/gallery/CZML Point.html',
+  'Apps/Sandcastle/gallery/CZML Polygon - Interpolating References.html',
+  'Apps/Sandcastle/gallery/CZML Polygon - Intervals, Availability.html',
+  'Apps/Sandcastle/gallery/CZML Polygon.html',
+  'Apps/Sandcastle/gallery/CZML Polyline Volume.html',
+  'Apps/Sandcastle/gallery/CZML Polyline.html',
+  'Apps/Sandcastle/gallery/CZML Position Definitions.html',
+  'Apps/Sandcastle/gallery/CZML Rectangle.html',
+  'Apps/Sandcastle/gallery/CZML Reference Properties.html',
+  'Apps/Sandcastle/gallery/CZML Spheres and Ellipsoids.html',
+  'Apps/Sandcastle/gallery/CZML Wall.html',
+  'Apps/Sandcastle/gallery/CZML ZIndex.html',
+  'Apps/Sandcastle/gallery/Fog.html',
+
 ];
 
 // 定义目标目录
